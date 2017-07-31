@@ -346,7 +346,6 @@ def dateModified_asset(self):
 
     response = self.app.patch_json('/assets/{}?acc_token={}'.format(
         asset['id'], token), {'data': {'description': 'PATCHED'}})
-    print response.json['data']
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
 
