@@ -4,7 +4,6 @@ from zope.interface import implementer
 
 from openregistry.assets.core.models import (
     IAsset, Asset as BaseAsset,
-    view_role, create_role, edit_role, Administrator_role
 )
 
 
