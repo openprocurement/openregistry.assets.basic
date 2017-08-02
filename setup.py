@@ -6,6 +6,9 @@ version = '0.1.dev0'
 entry_points = {
     'openregistry.assets.core.plugins': [
         'assets.basic = openregistry.assets.basic.includeme:includeme'
+    ],
+    'openregistry.tests': [
+        'assets_basic_test_suite = openregistry.assets.basic.tests.main:suite'
     ]
 }
 
