@@ -13,9 +13,15 @@ from openregistry.assets.core.validation import (
     validate_patch_asset_data,
     validate_asset_status_update_in_terminated_status
 )
+from openregistry.assets.basic.validation import (
+    validate_change_asset_status
+)
 
 
-patch_asset_validators = (validate_patch_asset_data, validate_asset_status_update_in_terminated_status, )
+patch_asset_validators = (validate_asset_status_update_in_terminated_status,
+                          validate_change_asset_status,
+                          validate_patch_asset_data)
+
 
 @opassetsresource(name='basic:Asset',
                   path='/assets/{asset_id}',
@@ -28,7 +34,9 @@ class AssetResource(APIResource):
         asset_data = self.context.serialize(self.context.status)
         return {'data': asset_data}
 
-    @json_view(content_type="application/json", validators=patch_asset_validators, permission='edit_asset')
+    @json_view(content_type="application/json",
+               validators=patch_asset_validators,
+               permission='edit_asset')
     def patch(self):
         asset = self.context
         apply_patch(self.request, src=self.request.validated['asset_src'])
