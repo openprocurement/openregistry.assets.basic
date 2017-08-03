@@ -8,7 +8,7 @@ entry_points = {
         'assets.basic = openregistry.assets.basic.includeme:includeme'
     ],
     'openregistry.tests': [
-        'assets_basic_test_suite = openregistry.assets.basic.tests.main:suite'
+        'assets.basic = openregistry.assets.basic.tests.main:suite'
     ]
 }
 
