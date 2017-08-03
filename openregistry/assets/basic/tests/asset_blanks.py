@@ -389,3 +389,28 @@ def asset_not_found(self):
     response = self.app.get('/assets/{}'.format(data['_id']), status=404)
     self.assertEqual(response.status, '404 Not Found')
 
+
+def asset_bot_patch(self):
+    response = self.app.post_json('/assets', {'data': self.initial_data})
+    self.assertEqual(response.status, '201 Created')
+    self.assertEqual(response.content_type, 'application/json')
+    asset = response.json['data']
+
+    self.app.authorization = ('Basic', ('bot', ''))
+
+    response = self.app.get('/assets/{}'.format(asset['id']))
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['data'], asset)
+
+    # Move to Active status
+    response = self.app.patch_json('/assets/{}'.format(
+        asset['id']), {'data': {'status': 'active'}})
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+
+    # Move to Pending status
+    response = self.app.patch_json('/assets/{}'.format(
+        asset['id']), {'data': {'status': 'pending'}})
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')

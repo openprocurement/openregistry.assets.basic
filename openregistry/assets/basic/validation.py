@@ -23,3 +23,4 @@ def validate_change_asset_status(request, error_handler, **kwargs):
                                       'Can\'t update asset in current ({}) status'.format(asset.status))
             request.validated['data'] = {'status': status}
             request.context.status = status
+            break

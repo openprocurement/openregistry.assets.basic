@@ -6,9 +6,9 @@ STATUS_CHANGES = {
     },
     "pending": {
         "deleted": "asset_owner",
-        "active": "internal_bot"
+        "active": "bot"
     },
     "active": {
-        "pending": "internal_bot"
+        "pending": "bot"
     }
 }

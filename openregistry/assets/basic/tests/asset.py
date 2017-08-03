@@ -17,6 +17,7 @@ from openregistry.assets.basic.tests.asset_blanks import (
     listing_changes,
     create_asset,
     patch_asset,
+    asset_bot_patch,
     # TenderTest
     simple_add_asset,
 )
@@ -30,6 +31,7 @@ class TenderResourceTestMixin(object):
     test_get_asset = snitch(get_asset)
     test_dateModified_asset = snitch(dateModified_asset)
     test_asset_not_found = snitch(asset_not_found)
+    test_asset_bot_patch = snitch(asset_bot_patch)
 
 
 class TenderTest(BaseWebTest):
