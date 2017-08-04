@@ -8,6 +8,9 @@ STATUS_CHANGES = {
         "deleted": "asset_owner",
         "active": "bot"
     },
+    "deleted": {
+
+    },
     "active": {
         "pending": "bot"
     }
