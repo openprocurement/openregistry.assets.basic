@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# openprocurement.auctions.dgf documentation build configuration file, created by
+# openregistry.assets.basic documentation build configuration file, created by
 # sphinx-quickstart on Wed Oct  1 02:29:13 2014.
 #
 # This file is execfile()d with the current directory set to its
@@ -50,8 +50,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'openprocurement.auctions.dgf'
-copyright = u'2016, Quintagroup, Ltd'
+project = u'openprocurement.assets.basic'
+copyright = u'2017, Quintagroup, Ltd'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -183,7 +183,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'openprocurementauctionsdgfdoc'
+htmlhelp_basename = 'openregistryassetsbasicdoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -203,7 +203,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'openprocurementauctionsdgf.tex', u'openprocurement.auctions.dgf Documentation',
+  ('index', 'openregistryassetsbasic.tex', u'openregistry.assets.basic Documentation',
    u'Myroslav Opyr', 'manual'),
 ]
 
@@ -233,8 +233,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'openprocurementauctionsdgf', u'openprocurement.auctions.dgf Documentation',
-     [u'Myroslav Opyr'], 1)
+    ('index', 'openregistryassetsbasic', u'openregistry.assets.basic Documentation',
+     [u'Myroslav Opyr', u'Leits], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -247,8 +247,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'openprocurementauctionsdgf', u'openprocurement.auctions.dgf Documentation',
-   u'Myroslav Opyr', 'openprocurementauctionsdgf', 'One line description of project.',
+  ('index', 'openregistryassetsbasic', u'openregistry.assets.basic Documentation',
+   u'Myroslav Opyr', 'openregistryassetsbasic', 'One line description of project.',
    'Miscellaneous'),
 ]
 
@@ -270,7 +270,6 @@ gettext_compact = False     # optional.
 intersphinx_mapping = {
     'python': ('http://docs.python.org/dev', None),
     'openprocurementapi': ('http://api-docs.openprocurement.org/en/latest', None),
-    'openprocurementtenderlimited': ('http://openprocurementtenderlimited.readthedocs.org/en/latest/', None),
     'documentservice': ('http://documentservice.api-docs.openprocurement.org/en/latest', None),
 }
 intersphinx_cache_limit = 1
