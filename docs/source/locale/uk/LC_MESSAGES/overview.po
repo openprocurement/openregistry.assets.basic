@@ -43,13 +43,6 @@ msgstr ""
 "Репозиторій джерельних текстів цього проекту є на GitHub: "
 "https://github.com/openprocurement/openregistry.api"
 
-msgid ""
-"You can leave feedback by raising a new issue on the `issue tracker <>`_ "
-"(GitHub registration necessary)."
-msgstr ""
-"Повідомляйте про всі проблеми та поради через `issue tracker <>`_ "
-"(реєстрація на GitHub обов’язкова)."
-
 msgid "Documentation of related packages"
 msgstr "Документація пов’язаних пакетів"
 

@@ -11,11 +11,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../source/index.rst:12
 msgid "Welcome to openregistry.assets.basic's documentation!"
 msgstr "Вітаємо на сайті документації по openregistry.assets.basic! "
 
-#: ../../source/index.rst:14
 msgid ""
 "Please report any problems or suggestions for improvement either via the "
 "`mailing list <http://groups.google.com/group/open-procurement-general>`_ or"
@@ -56,3 +54,6 @@ msgstr ":ref:`genindex`"
 
 msgid ":ref:`search`"
 msgstr ":ref:`search`"
+
+msgid "kmqHGqhpzgef4t5OVKoQCPa5v-CK14HOLmVrZV2QgmQ"
+msgstr ""
