@@ -51,8 +51,8 @@ msgstr "Статус запису в реєстрі активів."
 msgid "string, required in `active` status"
 msgstr "рядок, обов'язковий у статусі `active`"
 
-msgid "ID of the related :ref:`lot`."
-msgstr "Ідентифікатор :ref:`lot`, до якого належить актив."
+msgid "ID of the related Lot."
+msgstr "Ідентифікатор лоту, до якого належить актив."
 
 msgid "Type of the given asset."
 msgstr "Тип активу."
