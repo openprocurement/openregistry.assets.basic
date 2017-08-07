@@ -14,7 +14,12 @@ entry_points = {
 
 requires = [
     'setuptools',
+    'openprocurement.api',
     'openregistry.assets.core'
+]
+
+docs_requires = requires + [
+    'sphinxcontrib-httpdomain',
 ]
 
 setup(name='openregistry.assets.basic',
@@ -36,6 +41,7 @@ setup(name='openregistry.assets.basic',
       namespace_packages=['openregistry', 'openregistry.assets'],
       include_package_data=True,
       zip_safe=False,
+      extras_require={'docs': docs_requires},
       install_requires=requires,
       entry_points=entry_points,
       )

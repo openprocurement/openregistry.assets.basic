@@ -6,9 +6,7 @@ parts=
 
 [docs]
 recipe = collective.recipe.sphinxbuilder
-eggs = 
-    sphinx_rtd_theme
-    openregistry.assets.basic[docs]
+eggs = openregistry.assets.basic[docs]
 source = ${buildout:directory}/docs/source
 build = ${buildout:directory}/docs/_build
 
@@ -16,6 +14,7 @@ build = ${buildout:directory}/docs/_build
 recipe = zc.recipe.egg:scripts
 eggs =
     openregistry.assets.basic
+    sphinx_rtd_theme
     sphinx-intl
 
 [versions]
