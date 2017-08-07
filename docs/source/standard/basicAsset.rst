@@ -46,7 +46,7 @@ Schema
 :relatedLot:
     string, required in `active` status
     
-    ID of the related :ref:`lot`.
+    ID of the related Lot.
     
 :assetType:
     string, required
