@@ -12,6 +12,10 @@ STATUS_CHANGES = {
 
     },
     "active": {
-        "pending": "bot"
+        "pending": "bot",
+        "complete": "bot"
+    },
+    "complete": {
+
     }
 }

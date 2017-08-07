@@ -326,6 +326,117 @@ def patch_asset(self):
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertNotEqual(response.json['data']['dateModified'], dateModified)
+    
+    data['status'] = 'draft'
+    response = self.app.post_json('/assets', {'data': data})
+    self.assertEqual(response.status, '201 Created')
+    self.assertEqual(response.json['data']['status'], 'draft')
+    asset = response.json['data']
+    owner_token = response.json['access']['token']
+
+    # Move status from Draft to Active
+    response = self.app.patch_json('/assets/{}?acc_token={}'.format(
+        asset['id'], owner_token), {'data': {'status': 'active'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (draft) status")
+
+    # Move status from Draft to Deleted
+    response = self.app.patch_json('/assets/{}?acc_token={}'.format(
+        asset['id'], owner_token), {'data': {'status': 'deleted'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (draft) status")
+
+    # Move status from Draft to Complete
+    response = self.app.patch_json('/assets/{}?acc_token={}'.format(
+        asset['id'], owner_token), {'data': {'status': 'complete'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (draft) status")
+
+    # Move status from Draft to Pending
+    response = self.app.patch_json('/assets/{}?acc_token={}'.format(
+        asset['id'], owner_token), {'data': {'status': 'pending'}})
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['data']['status'], 'pending')
+
+    # Move status from Pending to Draft
+    response = self.app.patch_json('/assets/{}?acc_token={}'.format(
+        asset['id'], owner_token), {'data': {'status': 'draft'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (pending) status")
+
+    # Move status from Pending to Active
+    response = self.app.patch_json('/assets/{}?acc_token={}'.format(
+        asset['id'], owner_token), {'data': {'status': 'active'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (pending) status")
+
+    # Move status from Pending to Complete
+    response = self.app.patch_json('/assets/{}?acc_token={}'.format(
+        asset['id'], owner_token), {'data': {'status': 'complete'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (pending) status")
+
+    # Move status from Pending to Deleted
+    response = self.app.patch_json('/assets/{}?acc_token={}'.format(
+        asset['id'], owner_token), {'data': {'status': 'deleted'}})
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['data']['status'], 'deleted')
+
+    # Move status from Deleted to Draft
+    response = self.app.patch_json('/assets/{}?acc_token={}'.format(
+        asset['id'], owner_token), {'data': {'status': 'draft'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (deleted) status")
+
+    # Move status from Deleted to Pending
+    response = self.app.patch_json('/assets/{}?acc_token={}'.format(
+        asset['id'], owner_token), {'data': {'status': 'pending'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (deleted) status")
+
+    # Move status from Deleted to Active
+    response = self.app.patch_json('/assets/{}?acc_token={}'.format(
+        asset['id'], owner_token), {'data': {'status': 'active'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (deleted) status")
+
+    # Move status from Deleted to Complete
+    response = self.app.patch_json('/assets/{}?acc_token={}'.format(
+        asset['id'], owner_token), {'data': {'status': 'complete'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (deleted) status")
 
 
 def dateModified_asset(self):
@@ -403,14 +514,111 @@ def asset_bot_patch(self):
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['data'], asset)
 
-    # Move to Active status
+    # Move status from Pending to Active
     response = self.app.patch_json('/assets/{}'.format(
         asset['id']), {'data': {'status': 'active'}})
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['data']['status'], 'active')
 
-    # Move to Pending status
+    # Move status from Active to Draft
+    response = self.app.patch_json('/assets/{}'.format(
+        asset['id']), {'data': {'status': 'draft'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (active) status")
+
+    # Move status from Active to Deleted
+    response = self.app.patch_json('/assets/{}'.format(
+        asset['id']), {'data': {'status': 'deleted'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (active) status")
+
+    # Move status from Active to Pending
     response = self.app.patch_json('/assets/{}'.format(
         asset['id']), {'data': {'status': 'pending'}})
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['data']['status'], 'pending')
+
+    # Move status from Pending to Deleted
+    response = self.app.patch_json('/assets/{}'.format(
+        asset['id']), {'data': {'status': 'deleted'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (pending) status")
+
+    # Move status from Pending to Draft
+    response = self.app.patch_json('/assets/{}'.format(
+        asset['id']), {'data': {'status': 'draft'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (pending) status")
+
+    # Move status from Pending to Complete
+    response = self.app.patch_json('/assets/{}'.format(
+        asset['id']), {'data': {'status': 'draft'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (pending) status")
+
+    # Move status from Pending to Active
+    response = self.app.patch_json('/assets/{}'.format(
+        asset['id']), {'data': {'status': 'active'}})
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['data']['status'], 'active')
+
+    # Move status from Active to Complete
+    response = self.app.patch_json('/assets/{}'.format(
+        asset['id']), {'data': {'status': 'complete'}})
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['data']['status'], 'complete')
+
+    # Move status from Complete to Draft
+    response = self.app.patch_json('/assets/{}'.format(
+        asset['id']), {'data': {'status': 'deleted'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (complete) status")
+
+    # Move status from Complete to Pending
+    response = self.app.patch_json('/assets/{}'.format(
+        asset['id']), {'data': {'status': 'deleted'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (complete) status")
+
+    # Move status from Complete to Active
+    response = self.app.patch_json('/assets/{}'.format(
+        asset['id']), {'data': {'status': 'deleted'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (complete) status")
+
+    # Move status from Complete to Deleted
+    response = self.app.patch_json('/assets/{}'.format(
+        asset['id']), {'data': {'status': 'deleted'}}, status=403)
+    self.assertEqual(response.status, '403 Forbidden')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['errors'][0]['name'], u'data')
+    self.assertEqual(response.json['errors'][0]['location'], u'body')
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (complete) status")

@@ -32,6 +32,7 @@ class TenderResourceTestMixin(object):
     test_dateModified_asset = snitch(dateModified_asset)
     test_asset_not_found = snitch(asset_not_found)
     test_asset_bot_patch = snitch(asset_bot_patch)
+    test_patch_asset = snitch(patch_asset)
 
 
 class TenderTest(BaseWebTest):

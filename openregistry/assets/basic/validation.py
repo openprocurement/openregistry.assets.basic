@@ -21,6 +21,5 @@ def validate_change_asset_status(request, error_handler, **kwargs):
             elif new_status and auth_role != 'Administrator' and auth_role != STATUS_CHANGES[status].get(new_status, ''):
                 raise_operation_error(request, error_handler,
                                       'Can\'t update asset in current ({}) status'.format(asset.status))
-            request.validated['data'] = {'status': status}
-            request.context.status = status
+            request.validated['data'] = {'status': new_status}
             break
