@@ -45,5 +45,5 @@ zope.deprecation==4.1.1
 zope.interface==4.1.1
 git+https://github.com/openprocurement/python-json-patch.git
 git+https://github.com/openprocurement/rfc6266.git
-git+https://github.com/openprocurement/openprocurement.api.git@master#egg=openprocurement.api
-git+https://github.com/openprocurement/openprocurement.assets.core.git@master#egg=openprocurement.assets.core
+git+https://github.com/openregistry/openregistry.api.git@master#egg=openregistry.api
+git+https://github.com/openregistry/openprocurement.assets.core.git@master#egg=openregistry.assets.core
