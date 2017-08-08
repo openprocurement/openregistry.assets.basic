@@ -90,16 +90,17 @@ msgstr "``decription_ru`` (Russian)  - опис російською"
 msgid "|ocdsDescription| All related documents and attachments."
 msgstr "|ocdsDescription| Пов'язані з активом документи та додатки."
 
-msgid "An entity managing the asset."
+msgid ":ref:`Organization`, required"
+msgstr ":ref:`Organization`, обов'язково"
+
+msgid "The entity managing the asset."
 msgstr "Розпорядник активу."
 
 msgid ":ref:`Classification`, required"
 msgstr ":ref:`Classification`, обов'язково"
 
-msgid ""
-"The primary classification for the asset."
-msgstr ""
-"Початкова класифікація активу."
+msgid "The primary classification for the asset."
+msgstr "Початкова класифікація активу."
 
 msgid ""
 "It is required for `classification.scheme` to be `CPV`. The "
@@ -198,3 +199,72 @@ msgstr "Код одиниці виміру в UN/CEFACT Recommendation 20."
 
 msgid "|ocdsDescription| Name of the unit"
 msgstr "|ocdsDescription| Назва одиниці виміру"
+
+msgid "id"
+msgstr ""
+
+msgid "assetID"
+msgstr ""
+
+msgid "date"
+msgstr ""
+
+msgid "dateModified"
+msgstr ""
+
+msgid "mode"
+msgstr ""
+
+msgid "status"
+msgstr ""
+
+msgid "relatedLot"
+msgstr ""
+
+msgid "assetType"
+msgstr ""
+
+msgid "title"
+msgstr ""
+
+msgid "description"
+msgstr ""
+
+msgid "documents"
+msgstr ""
+
+msgid "assetCustodian"
+msgstr ""
+
+msgid "classification"
+msgstr ""
+
+msgid "additionalClassifications"
+msgstr ""
+
+msgid "unit"
+msgstr ""
+
+msgid "quantity"
+msgstr ""
+
+msgid "location"
+msgstr ""
+
+msgid "latitude"
+msgstr ""
+
+msgid "longitude"
+msgstr ""
+
+msgid "elevation"
+msgstr ""
+
+msgid "scheme"
+msgstr ""
+
+msgid "code"
+msgstr ""
+
+msgid "name"
+msgstr ""
