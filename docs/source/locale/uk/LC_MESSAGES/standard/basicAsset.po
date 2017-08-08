@@ -96,9 +96,6 @@ msgstr ":ref:`Organization`, обов'язково"
 msgid "The entity managing the asset."
 msgstr "Розпорядник активу."
 
-msgid "The entity managing the asset."
-msgstr "Розпорядник активу."
-
 msgid ":ref:`Classification`, required"
 msgstr ":ref:`Classification`, обов'язково"
 
