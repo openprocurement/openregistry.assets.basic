@@ -82,9 +82,9 @@ Schema
     All related documents and attachments.
     
 :assetCustodian:
-   string, required
+   :ref:`Organization`, required
 
-   An entity managing the asset.
+   The entity managing the asset.
     
 :classification:
     :ref:`Classification`, required
