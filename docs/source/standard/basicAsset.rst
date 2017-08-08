@@ -89,9 +89,7 @@ Schema
 :classification:
     :ref:`Classification`, required
 
-    |ocdsDescription|
-    The primary classification for the item. See the
-    `itemClassificationScheme` to identify preferred classification lists.
+    The primary classification for the asset.
 
     It is required for `classification.scheme` to be `CPV`. The
     `classification.id` should be valid CPV code.
