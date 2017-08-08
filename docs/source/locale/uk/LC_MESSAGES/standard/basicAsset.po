@@ -61,7 +61,7 @@ msgid "string, multilingual"
 msgstr "рядок, багатомовний"
 
 msgid "Ukrainian by default (required) - Ukrainian title"
-msgstr "країнською за замовчуванням - заголовок українською, обов'язково"
+msgstr "українською за замовчуванням - заголовок українською, обов'язково"
 
 msgid "``title_en`` (English) - English title"
 msgstr "``title_en`` (English) - заголовок англійською"
@@ -97,11 +97,9 @@ msgid ":ref:`Classification`, required"
 msgstr ":ref:`Classification`, обов'язково"
 
 msgid ""
-"|ocdsDescription| The primary classification for the item. See the "
-"`itemClassificationScheme` to identify preferred classification lists."
+"The primary classification for the asset."
 msgstr ""
-"|ocdsDescription| Початкова класифікація елемента. Дивіться у "
-"`itemClassificationScheme`, щоб визначити бажані списки класифікації."
+"Початкова класифікація активу."
 
 msgid ""
 "It is required for `classification.scheme` to be `CPV`. The "
