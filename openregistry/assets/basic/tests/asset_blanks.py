@@ -630,7 +630,7 @@ def administrator_change_delete_status(self):
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(len(response.json['data']), 0)
 
-    self.app.authorization = ('Basic', ('administrator', ''))
+    self.app.authorization = ('Basic', ('broker', ''))
 
     draft_asset = deepcopy(self.initial_data)
     draft_asset['status'] = 'draft'
@@ -643,6 +643,8 @@ def administrator_change_delete_status(self):
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['data'], asset)
+
+    self.app.authorization = ('Basic', ('administrator', ''))
 
     response = self.app.patch_json(
         '/assets/{}'.format(asset['id']),
@@ -682,7 +684,7 @@ def administrator_change_complete_status(self):
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(len(response.json['data']), 0)
 
-    self.app.authorization = ('Basic', ('administrator', ''))
+    self.app.authorization = ('Basic', ('broker', ''))
 
     draft_asset = deepcopy(self.initial_data)
     draft_asset['status'] = 'draft'
@@ -695,6 +697,8 @@ def administrator_change_complete_status(self):
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['data'], asset)
+
+    self.app.authorization = ('Basic', ('administrator', ''))
 
     response = self.app.patch_json(
         '/assets/{}'.format(asset['id']),
