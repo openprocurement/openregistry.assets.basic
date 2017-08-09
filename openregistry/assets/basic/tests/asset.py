@@ -20,6 +20,8 @@ from openregistry.assets.basic.tests.asset_blanks import (
     asset_bot_patch,
     # TenderTest
     simple_add_asset,
+    administrator_change_delete_status,
+    administrator_change_complete_status,
 )
 
 
@@ -33,6 +35,8 @@ class TenderResourceTestMixin(object):
     test_asset_not_found = snitch(asset_not_found)
     test_asset_bot_patch = snitch(asset_bot_patch)
     test_patch_asset = snitch(patch_asset)
+    test_administrator_change_delete_status = snitch(administrator_change_delete_status)
+    test_administrator_change_complete_status = snitch(administrator_change_complete_status)
 
 
 class TenderTest(BaseWebTest):
