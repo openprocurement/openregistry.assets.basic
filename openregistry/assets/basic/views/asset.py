@@ -11,15 +11,14 @@ from openregistry.assets.core.utils import (
 
 from openregistry.assets.core.validation import (
     validate_patch_asset_data,
-    )
+)
 from openregistry.assets.basic.validation import (
     validate_change_asset_status,
-    validate_asset_status_update_in_terminated_status)
+    validate_asset_status_update_in_terminated_status
+)
 
 
-patch_asset_validators = (validate_change_asset_status,
-                          validate_asset_status_update_in_terminated_status,
-                          validate_patch_asset_data)
+patch_asset_validators = (validate_patch_asset_data, validate_asset_status_update_in_terminated_status, validate_change_asset_status)
 
 
 @opassetsresource(name='basic:Asset',
