@@ -327,7 +327,7 @@ def patch_asset(self):
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertNotEqual(response.json['data']['dateModified'], dateModified)
-    
+
     data['status'] = 'draft'
     response = self.app.post_json('/assets', {'data': data})
     self.assertEqual(response.status, '201 Created')
@@ -749,4 +749,3 @@ def administrator_change_complete_status(self):
     self.assertEqual(response.json['errors'][0]['name'], u'data')
     self.assertEqual(response.json['errors'][0]['location'], u'body')
     self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (complete) status")
-
