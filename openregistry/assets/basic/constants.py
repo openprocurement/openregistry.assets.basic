@@ -20,3 +20,5 @@ STATUS_CHANGES = {
 
     }
 }
+
+TERMINATED_STATUSES = ["deleted", "complete"]
