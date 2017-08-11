@@ -508,7 +508,7 @@ def asset_bot_patch(self):
     self.assertEqual(response.content_type, 'application/json')
     asset = response.json['data']
 
-    self.app.authorization = ('Basic', ('bot', ''))
+    self.app.authorization = ('Basic', ('bot1', ''))
 
     response = self.app.get('/assets/{}'.format(asset['id']))
     self.assertEqual(response.status, '200 OK')
