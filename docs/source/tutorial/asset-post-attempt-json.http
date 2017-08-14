@@ -1,0 +1,22 @@
+POST /api/0.1/assets?opt_pretty=1 HTTP/1.0
+Authorization: Basic YnJva2VyOg==
+Content-Length: 4
+Content-Type: application/json
+Host: lb.api-sandbox.registry.ea.openprocurement.net
+
+
+422 Unprocessable Entity
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+
+{
+  "status": "error", 
+  "errors": [
+    {
+      "description": "No JSON object could be decoded", 
+      "location": "body", 
+      "name": "data"
+    }
+  ]
+}
+

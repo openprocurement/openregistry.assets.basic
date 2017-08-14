@@ -55,7 +55,18 @@ API stability
 API is relatively stable. The changes in the API are communicated via `Open Procurement API
 <https://groups.google.com/group/open-procurement-api>`_ maillist.
 
+Change log
+----------
+
+0.1
+~~~
+
+Not Released
+
+ - Set up general build, testing, deployment, and ci framework.
+ - Creating/modifying asset
 
 Next steps
 ----------
-You might find it helpful to look at the :ref:`tutorial`.
+You might find it helpful to look at the :ref:`tutorial`, or the
+:ref:`reference`.

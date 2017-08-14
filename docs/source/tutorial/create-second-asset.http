@@ -1,0 +1,116 @@
+POST /api/0.1/assets?opt_pretty=1 HTTP/1.0
+Authorization: Basic YnJva2VyOg==
+Content-Length: 1516
+Content-Type: application/json
+Host: lb.api-sandbox.registry.ea.openprocurement.net
+
+{
+  "data": {
+    "assetType": "basic", 
+    "classification": {
+      "scheme": "CPV", 
+      "id": "37452200-3", 
+      "description": "Земельні ділянки"
+    }, 
+    "title": "Земля для космодрому", 
+    "value": {
+      "currency": "UAH", 
+      "amount": 100
+    }, 
+    "unit": {
+      "code": "44617100-9", 
+      "name": "item"
+    }, 
+    "address": {
+      "countryName": "Україна", 
+      "postalCode": "79000", 
+      "region": "м. Київ", 
+      "streetAddress": "вул. Банкова 1", 
+      "locality": "м. Київ"
+    }, 
+    "assetCustodian": {
+      "contactPoint": {
+        "name": "Державне управління справами", 
+        "telephone": "0440000000"
+      }, 
+      "identifier": {
+        "scheme": "UA-EDR", 
+        "id": "00037256", 
+        "uri": "http://www.dus.gov.ua/"
+      }, 
+      "name": "Державне управління справами", 
+      "address": {
+        "countryName": "Україна", 
+        "postalCode": "01220", 
+        "region": "м. Київ", 
+        "streetAddress": "вул. Банкова, 11, корпус 1", 
+        "locality": "м. Київ"
+      }
+    }, 
+    "quantity": 5
+  }
+}
+
+
+201 Created
+Content-Type: application/json
+Location: http://lb.api-sandbox.registry.ea.openprocurement.net/api/0.1/assets/8db78202acbb4d7c89e79c9d68559798
+X-Content-Type-Options: nosniff
+
+{
+  "access": {
+    "token": "580b71d6939545d6bb7cb7d02e016079"
+  }, 
+  "data": {
+    "status": "draft", 
+    "assetType": "basic", 
+    "classification": {
+      "scheme": "CPV", 
+      "description": "Земельні ділянки", 
+      "id": "37452200-3"
+    }, 
+    "title": "Земля для космодрому", 
+    "assetID": "UA-2017-08-14-000002", 
+    "value": {
+      "currency": "UAH", 
+      "amount": 100.0, 
+      "valueAddedTaxIncluded": true
+    }, 
+    "dateModified": "2017-08-14T18:14:14.471682+03:00", 
+    "owner": "broker", 
+    "assetCustodian": {
+      "contactPoint": {
+        "name": "Державне управління справами", 
+        "telephone": "0440000000"
+      }, 
+      "identifier": {
+        "scheme": "UA-EDR", 
+        "id": "00037256", 
+        "uri": "http://www.dus.gov.ua/"
+      }, 
+      "name": "Державне управління справами", 
+      "address": {
+        "postalCode": "01220", 
+        "countryName": "Україна", 
+        "streetAddress": "вул. Банкова, 11, корпус 1", 
+        "region": "м. Київ", 
+        "locality": "м. Київ"
+      }
+    }, 
+    "address": {
+      "postalCode": "79000", 
+      "countryName": "Україна", 
+      "streetAddress": "вул. Банкова 1", 
+      "region": "м. Київ", 
+      "locality": "м. Київ"
+    }, 
+    "date": "2017-08-14T18:14:14.469458+03:00", 
+    "id": "8db78202acbb4d7c89e79c9d68559798", 
+    "unit": {
+      "code": "44617100-9", 
+      "name": "item"
+    }, 
+    "quantity": 5
+  }
+}
+

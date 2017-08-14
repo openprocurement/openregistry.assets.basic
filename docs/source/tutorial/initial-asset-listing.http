@@ -1,0 +1,23 @@
+GET /api/0.1/assets HTTP/1.0
+Authorization: Basic YnJva2VyOg==
+Host: lb.api-sandbox.registry.ea.openprocurement.net
+
+
+200 OK
+Content-Type: application/json
+X-Content-Type-Options: nosniff
+
+{
+  "next_page": {
+    "path": "/api/0.1/assets?offset=2017-08-14T18%3A14%3A14.332878%2B03%3A00", 
+    "uri": "http://lb.api-sandbox.registry.ea.openprocurement.net/api/0.1/assets?offset=2017-08-14T18%3A14%3A14.332878%2B03%3A00", 
+    "offset": "2017-08-14T18:14:14.332878+03:00"
+  }, 
+  "data": [
+    {
+      "id": "ef68fbb73eca41ea9870335b79c65659", 
+      "dateModified": "2017-08-14T18:14:14.332878+03:00"
+    }
+  ]
+}
+
