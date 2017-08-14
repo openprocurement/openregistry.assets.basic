@@ -1,7 +1,7 @@
 .. . Kicking page rebuild 2014-10-30 17:00:08
 .. include:: defs.hrst
 
-.. index:: basic asset, Parameter, Classification, Unit
+.. index:: basic asset, Parameter, Classification, Unit, Value
 
 .. _basic asset:
 
@@ -42,6 +42,11 @@ Schema
     string, required
     
     The asset status within the Registry.
+    
+:value:
+    :ref:`Value`, required 
+    
+    Estimated asset value.
     
 :relatedLot:
     string, required in `active` status
@@ -185,3 +190,25 @@ Schema
 
     |ocdsDescription|
     Name of the unit
+    
+.. _value:
+
+Value
+===============
+
+Schema
+------
+
+:amount:    
+    float, required
+
+    Should be positive.
+    
+:currency:
+    string, required
+    
+    |ocdsDescription|
+    The currency in 3-letter ISO 4217 format.
+    
+:valueAddedTaxIncluded:
+    bool, required
