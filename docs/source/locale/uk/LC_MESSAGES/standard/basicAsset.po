@@ -200,6 +200,27 @@ msgstr "Код одиниці виміру в UN/CEFACT Recommendation 20."
 msgid "|ocdsDescription| Name of the unit"
 msgstr "|ocdsDescription| Назва одиниці виміру"
 
+msgid ":ref:`Value`, required"
+msgstr ":ref:`Value`, обов'язково"
+
+msgid "Estimated asset value."
+msgstr "Оціночна вартість."
+
+msgid "float, required"
+msgstr "float, обов'язково"
+
+msgid "Should be positive."
+msgstr "Повинно бути додатним."
+
+msgid "|ocdsDescription| The currency in 3-letter ISO 4217 format."
+msgstr "|ocdsDescription| Валюта у трибуквенному форматі ISO 4217."
+
+msgid "valueAddedTaxIncluded"
+msgstr "valueAddedTaxIncluded"
+
+msgid "bool, required"
+msgstr "булеве значення, обов’язково"
+
 msgid "id"
 msgstr ""
 
@@ -216,6 +237,9 @@ msgid "mode"
 msgstr ""
 
 msgid "status"
+msgstr ""
+
+msgid "value"
 msgstr ""
 
 msgid "relatedLot"
@@ -268,3 +292,15 @@ msgstr ""
 
 msgid "name"
 msgstr ""
+
+msgid "Value"
+msgstr ""
+
+msgid "amount"
+msgstr ""
+
+msgid "currency"
+msgstr ""
+
+#~ msgid "|ocdsDescription| Amount as a number."
+#~ msgstr "|ocdsDescription|Кількість як число."
