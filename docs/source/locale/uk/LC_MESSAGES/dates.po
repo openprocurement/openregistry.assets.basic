@@ -1,0 +1,19 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: openregistry.assets.basic 0.1.dev0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-15 10:49+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Date Format: ISO 8601"
+msgstr "Формат дати: ISO 8601"
+
+msgid ""
+"The date format is `ISO 8601 <http://en.wikipedia.org/wiki/ISO_8601>`_."
+msgstr "Формат дати: `ISO 8601 <http://en.wikipedia.org/wiki/ISO_8601>`_"
