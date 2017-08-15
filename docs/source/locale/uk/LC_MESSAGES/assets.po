@@ -1,0 +1,142 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: openregistry.assets.basic 0.1.dev0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-15 10:16+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Retrieving Asset Information"
+msgstr "Отримання інформації про актив"
+
+msgid "Getting list of all assets"
+msgstr "Отримати список всіх активів"
+
+msgid "Getting list of all assets."
+msgstr "Отримати список всіх активів"
+
+msgid "**Example request**:"
+msgstr "**Приклад запиту**:"
+
+msgid "**Example response**:"
+msgstr "**Приклад відповіді**:"
+
+msgid "Query Parameters"
+msgstr "Параметри запиту"
+
+msgid "offset number"
+msgstr "параметр, який ви повинні додати до вихідного запиту, щоб отримати наступну сторінку"
+
+msgid "limit number. default is 100"
+msgstr "обмеження кількості активів, що повертаються (дефолтне значення - 100)"
+
+msgid "Request Headers"
+msgstr "Заголовки запиту"
+
+msgid "optional OAuth token to authenticate"
+msgstr "необов'язковий токен OAuth для аутентифікації"
+
+msgid "Status Codes"
+msgstr "Коди стану"
+
+msgid "no error"
+msgstr "без помилок"
+
+msgid "endpoint not found"
+msgstr "ресурс не знайдено"
+
+msgid "Sorting"
+msgstr "Сортування"
+
+msgid "Assets returned are sorted by modification time."
+msgstr "Повернені активи просортовані за датою модифікації."
+
+msgid "Limiting number of Assets returned"
+msgstr "Обмеження кількості активів, що повертаються"
+
+msgid ""
+"You can control the number of `data` entries in the assets feed (batch size)"
+" with `limit` parameter. If not specified, data is being returned in batches"
+" of 100 elements."
+msgstr ""
+"Ви можете контролювати кількість `data` записів потоку даних закупівлі "
+"(розмір пакета) за допомогою параметра `limit`. Якщо він не вказаний, то дані "
+"будуть повернені пакетами по 100 елементів."
+
+msgid "Batching"
+msgstr "Пакети"
+
+msgid ""
+"The response contains `next_page` element with the following properties:"
+msgstr ""
+"Відповідь містить елемент `next_page`з такими властивостями:"
+
+msgid "offset"
+msgstr "offset"
+
+msgid ""
+"This is the parameter you have to add to the original request you made to "
+"get next page."
+msgstr ""
+"Це параметр, який ви повинні додати до вихідного запиту, щоб отримати наступну сторінку."
+
+msgid "path"
+msgstr "path"
+
+msgid ""
+"This is path section of URL with original parameters and `offset` parameter "
+"added/replaced above."
+msgstr ""
+"Це частина шляху URL-адреси з вихідними параметрами та доданим/заміненим `offset` параметром вище."
+
+msgid "uri"
+msgstr "uri"
+
+msgid "The full version of URL for next page."
+msgstr "Повна версія URL-адреси для наступної сторінки."
+
+msgid ""
+"If next page request returns no data (i.e. empty array) then there is little"
+" sense in fetching further pages."
+msgstr ""
+"Якщо запит наступної сторінки повертається без даних (наприклад, пустий масив), "
+"тоді немає сенсу викликати сторінки далі."
+
+msgid "Synchronizing"
+msgstr "Синхронізація"
+
+msgid ""
+"It is often necessary to be able to syncronize central database changes with"
+" other database (we'll call it \"local\").  The default sorting \"by "
+"modification date\" together with Batching mechanism allows one to implement"
+" synchronization effectively.  The synchronization process can go page by "
+"page until there is no new data returned.  Then the synchronizer has to "
+"pause for a while to let central database register some changes and attempt "
+"fetching subsequent page.  The `next_page` guarantees that all changes from "
+"the last request are included in the new batch."
+msgstr ""
+"Часто необхідно мати можливість синхронізувати зміни центральної бази даних з "
+"іншою базою даних (ми будемо називати її “локальною”). Стандартне сортування "
+"“за датою модифікації” разом із механізмом пакетування дозволяє ефективно здійснювати "
+"синхронізацію. Процес синхронізації може виконуватись посторінково, поки не буде "
+"жодних нових даних, що повертаються. Тоді синхронізатор призупиниться на деякий час, "
+"щоб дозволити центральній базі даних зареєструвати деякі зміни і спробувати завантажити "
+"наступну сторінку. next_page гарантує, що усі зміни з останнього запиту будуть включені "
+"у новий пакет."
+
+msgid "The safe frequency of synchronization requests is once per 5 minutes."
+msgstr "Безпечна частота запитів на синхронізацію - раз в 5 хвилин."
+
+msgid "Reading the individual asset information"
+msgstr "Прочитати інформацію про окремі активи"
+
+msgid "Getting asset details."
+msgstr "Отримати деталі активу"
+
+msgid "asset not found"
+msgstr "актив не знайдено"
