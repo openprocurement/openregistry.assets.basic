@@ -12,7 +12,14 @@ STATUS_CHANGES = {
         "editing_permissions": ["asset_owner", "bot", "Administrator"],
         "next_status": {
             "deleted": ["asset_owner", "Administrator"],
-            "active": ["bot", "Administrator"]
+            "verification": ["asset_owner", "Administrator"]
+        }
+    },
+    "verification": {
+        "editing_permissions":  ["bot", "Administrator"],
+        "next_status": {
+            "active": ["bot", "Administrator"],
+            "pending": ["bot", "Administrator"]
         }
     },
     "active": {

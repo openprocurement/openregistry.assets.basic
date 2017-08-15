@@ -21,32 +21,32 @@ from openregistry.assets.basic.tests.asset_blanks import (
     # AssetTest
     simple_add_asset,
     administrator_change_delete_status,
-    administrator_change_complete_status
+    administrator_change_complete_status,
 )
 
 
-class TenderResourceTestMixin(object):
-    test_listing_changes = snitch(listing_changes)
-    test_listing_draft = snitch(listing_draft)
-    test_listing = snitch(listing)
-    test_create_asset = snitch(create_asset)
-    test_get_asset = snitch(get_asset)
-    test_dateModified_asset = snitch(dateModified_asset)
-    test_asset_not_found = snitch(asset_not_found)
-    test_asset_bot_patch = snitch(asset_bot_patch)
-    test_patch_asset = snitch(patch_asset)
-    test_administrator_change_delete_status = snitch(administrator_change_delete_status)
-    test_administrator_change_complete_status = snitch(administrator_change_complete_status)
+class AssetResourceTestMixin(object):
+    test_01_listing = snitch(listing)
+    test_02_listing_changes = snitch(listing_changes)
+    test_03_listing_draft = snitch(listing_draft)
+    test_04_get_asset = snitch(get_asset)
+    test_05_dateModified_asset = snitch(dateModified_asset)
+    test_06_asset_not_found = snitch(asset_not_found)
+    test_07_create_asset = snitch(create_asset)
+    test_08_patch_asset = snitch(patch_asset)
+    test_09_asset_bot_patch = snitch(asset_bot_patch)
+    test_10_administrator_change_delete_status = snitch(administrator_change_delete_status)
+    test_11_administrator_change_complete_status = snitch(administrator_change_complete_status)
 
 
-class TenderTest(BaseWebTest):
+class AssetTest(BaseWebTest):
     initial_data = test_asset_data
     relative_to = os.path.dirname(__file__)
 
     test_simple_add_asset = snitch(simple_add_asset)
 
 
-class TenderResourceTest(BaseAssetWebTest, TenderResourceTestMixin):
+class AssetResourceTest(BaseAssetWebTest, AssetResourceTestMixin):
     initial_data = test_asset_data
     initial_status = "pending"
     initial_auth = ('Basic', ('broker', ''))
@@ -55,8 +55,8 @@ class TenderResourceTest(BaseAssetWebTest, TenderResourceTestMixin):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(TenderResourceTest))
-    suite.addTest(unittest.makeSuite(TenderTest))
+    suite.addTest(unittest.makeSuite(AssetResourceTest))
+    suite.addTest(unittest.makeSuite(AssetTest))
     return suite
 
 
