@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from openregistry.assets.core.adapters import AssetConfigurator
-from .constants import STATUS_CHANGES, TERMINATED_STATUSES
+from .constants import STATUS_CHANGES
 
 
 class BasicAssetConfigurator(AssetConfigurator):
@@ -8,4 +8,3 @@ class BasicAssetConfigurator(AssetConfigurator):
 
     name = "Basic Asset configurator"
     available_statuses = STATUS_CHANGES
-    terminated_statuses = TERMINATED_STATUSES

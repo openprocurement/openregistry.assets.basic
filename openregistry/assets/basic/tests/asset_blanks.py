@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from uuid import uuid4
 
-from copy import deepcopy
 from openregistry.api.utils import get_now
 from openregistry.api.constants import ROUTE_PREFIX
 
@@ -37,18 +36,18 @@ def listing(self):
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(len(response.json['data']), 0)
 
+    offset = get_now().isoformat()
+
     assets = []
 
-    for i in range(3):
+    for _ in range(3):
         offset = get_now().isoformat()
-        response = self.app.post_json('/assets', {'data': self.initial_data})
-        self.assertEqual(response.status, '201 Created')
-        self.assertEqual(response.content_type, 'application/json')
-        assets.append(response.json['data'])
+        asset = self.create_asset()
+        assets.append(asset)
 
     ids = ','.join([i['id'] for i in assets])
 
-    while True:
+    for _ in range(10):
         response = self.app.get('/assets')
         self.assertTrue(ids.startswith(','.join([i['id'] for i in response.json['data']])))
         if len(response.json['data']) == 3:
@@ -60,7 +59,7 @@ def listing(self):
     self.assertEqual(set([i['dateModified'] for i in response.json['data']]), set([i['dateModified'] for i in assets]))
     self.assertEqual([i['dateModified'] for i in response.json['data']], sorted([i['dateModified'] for i in assets]))
 
-    while True:
+    for _ in range(10):
         response = self.app.get('/assets?offset={}'.format(offset))
         self.assertEqual(response.status, '200 OK')
         if len(response.json['data']) == 1:
@@ -111,13 +110,9 @@ def listing(self):
     self.assertNotIn('descending=1', response.json['prev_page']['uri'])
     self.assertEqual(len(response.json['data']), 0)
 
-    test_asset_data2 = self.initial_data.copy()
-    test_asset_data2['mode'] = 'test'
-    response = self.app.post_json('/assets', {'data': test_asset_data2})
-    self.assertEqual(response.status, '201 Created')
-    self.assertEqual(response.content_type, 'application/json')
+    self.create_asset(extra={"mode": "test"})
 
-    while True:
+    for _ in range(10):
         response = self.app.get('/assets?mode=test')
         self.assertEqual(response.status, '200 OK')
         if len(response.json['data']) == 1:
@@ -134,17 +129,11 @@ def listing_changes(self):
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(len(response.json['data']), 0)
 
-    assets = []
-
-    for i in range(3):
-        response = self.app.post_json('/assets', {'data': self.initial_data})
-        self.assertEqual(response.status, '201 Created')
-        self.assertEqual(response.content_type, 'application/json')
-        assets.append(response.json['data'])
+    assets = [self.create_asset() for _ in range(3)]
 
     ids = ','.join([i['id'] for i in assets])
 
-    while True:
+    for _ in range(10):
         response = self.app.get('/assets?feed=changes')
         self.assertTrue(ids.startswith(','.join([i['id'] for i in response.json['data']])))
         if len(response.json['data']) == 3:
@@ -202,13 +191,9 @@ def listing_changes(self):
     self.assertNotIn('descending=1', response.json['prev_page']['uri'])
     self.assertEqual(len(response.json['data']), 0)
 
-    test_asset_data2 = self.initial_data.copy()
-    test_asset_data2['mode'] = 'test'
-    response = self.app.post_json('/assets', {'data': test_asset_data2})
-    self.assertEqual(response.status, '201 Created')
-    self.assertEqual(response.content_type, 'application/json')
+    self.create_asset(extra={"mode": "test"})
 
-    while True:
+    for _ in range(10):
         response = self.app.get('/assets?feed=changes&mode=test')
         self.assertEqual(response.status, '200 OK')
         if len(response.json['data']) == 1:
@@ -225,22 +210,11 @@ def listing_draft(self):
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(len(response.json['data']), 0)
 
-    assets = []
-    data = self.initial_data.copy()
-    data.update({'status': 'draft'})
-
-    for i in range(3):
-        response = self.app.post_json('/assets', {'data': self.initial_data})
-        self.assertEqual(response.status, '201 Created')
-        self.assertEqual(response.content_type, 'application/json')
-        assets.append(response.json['data'])
-        response = self.app.post_json('/assets', {'data': data})
-        self.assertEqual(response.status, '201 Created')
-        self.assertEqual(response.content_type, 'application/json')
+    assets = [self.create_asset() for _ in range(3)]
 
     ids = ','.join([i['id'] for i in assets])
 
-    while True:
+    for _ in range(10):
         response = self.app.get('/assets')
         self.assertTrue(ids.startswith(','.join([i['id'] for i in response.json['data']])))
         if len(response.json['data']) == 3:
@@ -290,9 +264,7 @@ def get_asset(self):
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(len(response.json['data']), 0)
 
-    response = self.app.post_json('/assets', {'data': self.initial_data})
-    self.assertEqual(response.status, '201 Created')
-    asset = response.json['data']
+    asset = self.create_asset()
 
     response = self.app.get('/assets/{}'.format(asset['id']))
     self.assertEqual(response.status, '200 OK')
@@ -316,10 +288,8 @@ def patch_asset(self):
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(len(response.json['data']), 0)
 
-    response = self.app.post_json('/assets', {'data': data})
-    self.assertEqual(response.status, '201 Created')
-    asset = response.json['data']
-    owner_token = response.json['access']['token']
+    asset = self.create_asset()
+    owner_token = self.asset_token
     dateModified = asset.pop('dateModified')
 
     response = self.app.patch_json('/assets/{}?acc_token={}'.format(
@@ -328,12 +298,9 @@ def patch_asset(self):
     self.assertEqual(response.content_type, 'application/json')
     self.assertNotEqual(response.json['data']['dateModified'], dateModified)
 
-    data['status'] = 'draft'
-    response = self.app.post_json('/assets', {'data': data})
-    self.assertEqual(response.status, '201 Created')
-    self.assertEqual(response.json['data']['status'], 'draft')
-    asset = response.json['data']
-    owner_token = response.json['access']['token']
+    asset = self.create_asset()
+    self.set_status('draft')
+    owner_token = self.asset_token
 
     # Move status from Draft to Active
     response = self.app.patch_json('/assets/{}?acc_token={}'.format(
@@ -376,7 +343,7 @@ def patch_asset(self):
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]['name'], u'data')
     self.assertEqual(response.json['errors'][0]['location'], u'body')
-    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (pending) status")
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't switch asset to draft status")
 
     # Move status from Pending to Active
     response = self.app.patch_json('/assets/{}?acc_token={}'.format(
@@ -457,9 +424,10 @@ def dateModified_asset(self):
     self.assertEqual(response.json['data']['dateModified'], dateModified)
 
     response = self.app.patch_json('/assets/{}?acc_token={}'.format(
-        asset['id'], token), {'data': {'description': 'PATCHED'}})
+        asset['id'], token), {'data': {'status': 'pending'}})
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['data']['status'], 'pending')
 
     self.assertNotEqual(response.json['data']['dateModified'], dateModified)
     asset = response.json['data']
@@ -503,10 +471,7 @@ def asset_not_found(self):
 
 
 def asset_bot_patch(self):
-    response = self.app.post_json('/assets', {'data': self.initial_data})
-    self.assertEqual(response.status, '201 Created')
-    self.assertEqual(response.content_type, 'application/json')
-    asset = response.json['data']
+    asset = self.create_asset()
 
     self.app.authorization = ('Basic', ('bot', ''))
 
@@ -514,6 +479,13 @@ def asset_bot_patch(self):
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['data'], asset)
+
+    # Move status from Draft to Pending
+    response = self.app.patch_json('/assets/{}'.format(
+        asset['id']), {'data': {'status': 'pending'}})
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['data']['status'], 'pending')
 
     # Move status from Pending to Active
     response = self.app.patch_json('/assets/{}'.format(
@@ -529,7 +501,7 @@ def asset_bot_patch(self):
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]['name'], u'data')
     self.assertEqual(response.json['errors'][0]['location'], u'body')
-    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (active) status")
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't switch asset to draft status")
 
     # Move status from Active to Deleted
     response = self.app.patch_json('/assets/{}'.format(
@@ -563,11 +535,11 @@ def asset_bot_patch(self):
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]['name'], u'data')
     self.assertEqual(response.json['errors'][0]['location'], u'body')
-    self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (pending) status")
+    self.assertEqual(response.json['errors'][0]['description'], u"Can't switch asset to draft status")
 
     # Move status from Pending to Complete
     response = self.app.patch_json('/assets/{}'.format(
-        asset['id']), {'data': {'status': 'draft'}}, status=403)
+        asset['id']), {'data': {'status': 'complete'}}, status=403)
     self.assertEqual(response.status, '403 Forbidden')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]['name'], u'data')
@@ -631,13 +603,7 @@ def administrator_change_delete_status(self):
     self.assertEqual(len(response.json['data']), 0)
 
     self.app.authorization = ('Basic', ('broker', ''))
-
-    draft_asset = deepcopy(self.initial_data)
-    draft_asset['status'] = 'draft'
-    response = self.app.post_json('/assets', {'data': draft_asset})
-    self.assertEqual(response.status, '201 Created')
-    asset = response.json['data']
-    self.assertEqual(asset.get('status', ''), 'draft')
+    asset = self.create_asset()
 
     response = self.app.get('/assets/{}'.format(asset['id']))
     self.assertEqual(response.status, '200 OK')
@@ -645,18 +611,6 @@ def administrator_change_delete_status(self):
     self.assertEqual(response.json['data'], asset)
 
     self.app.authorization = ('Basic', ('administrator', ''))
-
-    response = self.app.patch_json(
-        '/assets/{}'.format(asset['id']),
-        {'data': {'status': 'pending'}}
-    )
-    self.assertEqual(response.status, '200 OK')
-
-    response = self.app.patch_json(
-        '/assets/{}'.format(asset['id']),
-        {'data': {'status': 'draft'}}
-    )
-    self.assertEqual(response.status, '200 OK')
 
     response = self.app.patch_json(
         '/assets/{}'.format(asset['id']),
@@ -685,13 +639,7 @@ def administrator_change_complete_status(self):
     self.assertEqual(len(response.json['data']), 0)
 
     self.app.authorization = ('Basic', ('broker', ''))
-
-    draft_asset = deepcopy(self.initial_data)
-    draft_asset['status'] = 'draft'
-    response = self.app.post_json('/assets', {'data': draft_asset})
-    self.assertEqual(response.status, '201 Created')
-    asset = response.json['data']
-    self.assertEqual(asset.get('status', ''), 'draft')
+    asset = self.create_asset()
 
     response = self.app.get('/assets/{}'.format(asset['id']))
     self.assertEqual(response.status, '200 OK')
@@ -699,18 +647,6 @@ def administrator_change_complete_status(self):
     self.assertEqual(response.json['data'], asset)
 
     self.app.authorization = ('Basic', ('administrator', ''))
-
-    response = self.app.patch_json(
-        '/assets/{}'.format(asset['id']),
-        {'data': {'status': 'pending'}}
-    )
-    self.assertEqual(response.status, '200 OK')
-
-    response = self.app.patch_json(
-        '/assets/{}'.format(asset['id']),
-        {'data': {'status': 'draft'}}
-    )
-    self.assertEqual(response.status, '200 OK')
 
     response = self.app.patch_json(
         '/assets/{}'.format(asset['id']),

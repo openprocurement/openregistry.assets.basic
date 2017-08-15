@@ -8,7 +8,7 @@ from openregistry.assets.basic.tests.base import (
     test_asset_data, BaseAssetWebTest
 )
 from openregistry.assets.basic.tests.asset_blanks import (
-    # TenderResourceTest
+    # AssetResourceTest
     listing,
     get_asset,
     asset_not_found,
@@ -18,10 +18,10 @@ from openregistry.assets.basic.tests.asset_blanks import (
     create_asset,
     patch_asset,
     asset_bot_patch,
-    # TenderTest
+    # AssetTest
     simple_add_asset,
     administrator_change_delete_status,
-    administrator_change_complete_status,
+    administrator_change_complete_status
 )
 
 
@@ -48,6 +48,7 @@ class TenderTest(BaseWebTest):
 
 class TenderResourceTest(BaseAssetWebTest, TenderResourceTestMixin):
     initial_data = test_asset_data
+    initial_status = "pending"
     initial_auth = ('Basic', ('broker', ''))
     relative_to = os.path.dirname(__file__)
 

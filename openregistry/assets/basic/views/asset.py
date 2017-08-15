@@ -5,10 +5,7 @@ from openregistry.api.utils import (
     APIResource
 )
 
-from openregistry.api.validation import (
-    validate_change_status,
-    validate_terminated_statuses
-)
+from openregistry.api.validation import validate_change_status
 from openregistry.assets.core.utils import (
     opassetsresource, apply_patch
 )
@@ -18,9 +15,10 @@ from openregistry.assets.core.validation import (
 )
 
 
-patch_asset_validators = (validate_patch_asset_data,
-                          validate_terminated_statuses,
-                          validate_change_status)
+patch_asset_validators = (
+    validate_patch_asset_data,
+    validate_change_status
+)
 
 
 @opassetsresource(name='basic:Asset',

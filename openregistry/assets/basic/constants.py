@@ -1,24 +1,33 @@
 # -*- coding: utf-8 -*-
 
+
 STATUS_CHANGES = {
     "draft": {
-        "pending": "asset_owner"
+        "editing_permissions": ["asset_owner"],
+        "next_status": {
+            "pending": "asset_owner"
+        }
     },
     "pending": {
-        "deleted": ["asset_owner", "Administrator"],
-        "active": ["bot", "Administrator"],
-        "draft": ["Administrator"]
-    },
-    "deleted": {
-
+        "editing_permissions": ["asset_owner", "bot", "Administrator"],
+        "next_status": {
+            "deleted": ["asset_owner", "Administrator"],
+            "active": ["bot", "Administrator"]
+        }
     },
     "active": {
-        "pending": ["bot", "Administrator"],
-        "complete": ["bot", "Administrator"]
+        "editing_permissions": ["bot", "Administrator"],
+        "next_status": {
+            "pending": ["bot", "Administrator"],
+            "complete": ["bot", "Administrator"]
+        }
+    },
+    "deleted": {
+        "editing_permissions": [],
+        "next_status": {}
     },
     "complete": {
-
+        "editing_permissions": [],
+        "next_status": {}
     }
 }
-
-TERMINATED_STATUSES = ["deleted", "complete"]

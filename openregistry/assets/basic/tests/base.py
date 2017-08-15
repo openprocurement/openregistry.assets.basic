@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 from openregistry.assets.core.tests.base import (
     BaseAssetWebTest as BaseAWT
 )
@@ -56,6 +57,7 @@ test_asset_data = {
 class BaseAssetWebTest(BaseAWT):
     initial_data = BaseAWT
     initial_auth = ('Basic', ('broker', ''))
+    relative_to = os.path.dirname(__file__)
 
 
 class AssetContentWebTest(BaseAssetWebTest):
