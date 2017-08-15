@@ -25,6 +25,7 @@ class AssetDocumentResourceTestMixin(object):
 
 
 class AssetDocumentResourceTest(AssetContentWebTest, AssetDocumentResourceTestMixin):
+    initial_status = 'pending'
     relative_to = os.path.dirname(__file__)
     forbidden_document_modification_actions_status = 'active'  # status, in which operations with tender documents (adding, updating) are forbidden
 
