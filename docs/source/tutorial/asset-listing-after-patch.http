@@ -9,14 +9,14 @@ X-Content-Type-Options: nosniff
 
 {
   "next_page": {
-    "path": "/api/0.1/assets?offset=2017-08-14T18%3A14%3A14.594778%2B03%3A00", 
-    "uri": "http://lb.api-sandbox.registry.ea.openprocurement.net/api/0.1/assets?offset=2017-08-14T18%3A14%3A14.594778%2B03%3A00", 
-    "offset": "2017-08-14T18:14:14.594778+03:00"
+    "path": "/api/0.1/assets?offset=2017-08-16T18%3A36%3A14.133838%2B03%3A00", 
+    "uri": "http://lb.api-sandbox.registry.ea.openprocurement.net/api/0.1/assets?offset=2017-08-16T18%3A36%3A14.133838%2B03%3A00", 
+    "offset": "2017-08-16T18:36:14.133838+03:00"
   }, 
   "data": [
     {
-      "id": "ef68fbb73eca41ea9870335b79c65659", 
-      "dateModified": "2017-08-14T18:14:14.594778+03:00"
+      "id": "f7d85ded1544424d82a3473f9467f80f", 
+      "dateModified": "2017-08-16T18:36:14.133838+03:00"
     }
   ]
 }

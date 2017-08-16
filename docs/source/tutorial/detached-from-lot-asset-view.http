@@ -1,4 +1,4 @@
-GET /api/0.1/assets/3974a9668c954032ac5467714f6f6226 HTTP/1.0
+GET /api/0.1/assets/11ff5b04c97040c1882f0565ab43381a HTTP/1.0
 Authorization: Basic Ym90Og==
 Host: lb.api-sandbox.registry.ea.openprocurement.net
 
@@ -10,21 +10,21 @@ X-Content-Type-Options: nosniff
 {
   "data": {
     "status": "pending", 
-    "relatedLot": "005a3ca681074d1db944890caee85b85", 
+    "relatedLot": "140e37e9351d461bb5f6765f6f3ba5a9", 
     "classification": {
       "scheme": "CPV", 
       "description": "Земельні ділянки", 
       "id": "37452200-3"
     }, 
     "assetType": "basic", 
-    "assetID": "UA-2017-08-14-000001", 
+    "assetID": "UA-2017-08-16-000001", 
     "title": "Земля для космодрому", 
     "value": {
       "currency": "UAH", 
       "amount": 100.0, 
       "valueAddedTaxIncluded": true
     }, 
-    "dateModified": "2017-08-14T18:14:15.064402+03:00", 
+    "dateModified": "2017-08-16T18:36:14.549945+03:00", 
     "owner": "broker", 
     "assetCustodian": {
       "contactPoint": {
@@ -52,8 +52,8 @@ X-Content-Type-Options: nosniff
       "region": "м. Київ", 
       "locality": "м. Київ"
     }, 
-    "date": "2017-08-14T18:14:15.064402+03:00", 
-    "id": "3974a9668c954032ac5467714f6f6226", 
+    "date": "2017-08-16T18:36:14.549945+03:00", 
+    "id": "11ff5b04c97040c1882f0565ab43381a", 
     "unit": {
       "code": "44617100-9", 
       "name": "item"

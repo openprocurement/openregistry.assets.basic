@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 import json
 import os
@@ -59,27 +58,6 @@ class AssetResourceTest(BaseAssetWebTest):
         self.couchdb_server = self.app.app.registry.couchdb_server
         self.db = self.app.app.registry.db
 
-    def test_docs_2pc(self):
-        # Creating asset in draft status
-        #
-        data = self.initial_data.copy()
-        data['status'] = 'draft'
-
-        with open('docs/source/tutorial/asset-post-2pc.http', 'w') as self.app.file_obj:
-            response = self.app.post_json(
-                '/assets?opt_pretty=1', {"data": data})
-            self.assertEqual(response.status, '201 Created')
-
-        asset_id = response.json['data']['id']
-        owner_token = response.json['access']['token']
-
-        # switch to 'pending'
-
-        with open('docs/source/tutorial/asset-patch-2pc.http', 'w') as self.app.file_obj:
-            response = self.app.patch_json('/assets/{}?acc_token={}'.format(asset_id, owner_token),
-                                           {'data': {"status": 'pending'}})
-            self.assertEqual(response.status, '200 OK')
-
     def test_docs_tutorial(self):
         request_path = '/assets?opt_pretty=1'
 
@@ -102,16 +80,26 @@ class AssetResourceTest(BaseAssetWebTest):
                 request_path, 'data', content_type='application/json', status=422)
             self.assertEqual(response.status, '422 Unprocessable Entity')
 
-        # Creating asset
+        # Creating asset in draft status
         #
+        data = self.initial_data.copy()
+        data['status'] = 'draft'
 
-        with open('docs/source/tutorial/create-asset.http', 'w') as self.app.file_obj:
+        with open('docs/source/tutorial/asset-post-2pc.http', 'w') as self.app.file_obj:
             response = self.app.post_json(
-                '/assets?opt_pretty=1', {"data": self.initial_data})
+                '/assets?opt_pretty=1', {"data": data})
             self.assertEqual(response.status, '201 Created')
 
         asset_id = response.json['data']['id']
         owner_token = response.json['access']['token']
+
+        # switch to 'pending'
+
+        with open('docs/source/tutorial/asset-patch-2pc.http', 'w') as self.app.file_obj:
+            response = self.app.patch_json('/assets/{}?acc_token={}'.format(asset_id, owner_token),
+                                           {'data': {"status": 'pending'}})
+            self.assertEqual(response.status, '200 OK')
+
 
         with open('docs/source/tutorial/blank-asset-view.http', 'w') as self.app.file_obj:
             response = self.app.get('/assets/{}'.format(asset_id))
@@ -182,29 +170,50 @@ class AssetResourceTest(BaseAssetWebTest):
                                        {'data': {"status": 'pending'}})
         self.assertEqual(response.status, '200 OK')
 
-        # Switch to Active
+        # Switch to Verification
         #
 
         self.app.authorization = ('Basic', ('bot', ''))
 
-        response = self.app.patch_json('/assets/{}'.format(asset_id),
-                                       {'data': {"status": 'active', "relatedLot": uuid4().hex}})
+        response = self.app.patch_json('/assets/{}?acc_token={}'.format(asset_id, owner_token),
+                                       {'data': {"status": 'verification',
+                                                 "relatedLot": uuid4().hex}})
         self.assertEqual(response.status, '200 OK')
+
+
+        response = self.app.patch_json('/assets/{}?acc_token={}'.format(asset_id, owner_token),
+                                       {'data': {"status": 'active'}})
+        self.assertEqual(response.status, '200 OK')
+
+        # Switch to Active
+        #
 
         with open('docs/source/tutorial/attached-to-lot-asset-view.http', 'w') as self.app.file_obj:
             response = self.app.get('/assets/{}'.format(asset_id))
             self.assertEqual(response.status, '200 OK')
 
+        self.app.authorization = ('Basic', ('bot', ''))
+
         response = self.app.patch_json('/assets/{}'.format(asset_id),
-                                       {'data': {"status": 'pending', "relatedLot": None}})
+                                       {'data': {"status": 'pending',
+                                                 "relatedLot": None}})
         self.assertEqual(response.status, '200 OK')
 
         with open('docs/source/tutorial/detached-from-lot-asset-view.http', 'w') as self.app.file_obj:
             response = self.app.get('/assets/{}'.format(asset_id))
             self.assertEqual(response.status, '200 OK')
 
+        self.app.authorization = ('Basic', ('bot', ''))
+
+        response = self.app.patch_json('/assets/{}?acc_token={}'.format(asset_id, owner_token),
+                                       {'data': {"status": 'verification',
+                                                 "relatedLot": uuid4().hex}})
+        self.assertEqual(response.status, '200 OK')
+
+        self.app.authorization = ('Basic', ('bot', ''))
+
         response = self.app.patch_json('/assets/{}'.format(asset_id),
-                                       {'data': {"status": 'active', "relatedLot": uuid4().hex}})
+                                       {'data': {"status": 'active'}})
         self.assertEqual(response.status, '200 OK')
 
         # Switch to Complete

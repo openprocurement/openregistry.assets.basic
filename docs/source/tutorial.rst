@@ -36,7 +36,10 @@ Creating asset
 
 Let's create asset with the minimal (only required) data set:
 
-.. literalinclude:: tutorial/create-asset.http
+.. literalinclude:: tutorial/asset-post-2pc.http
+   :language: javascript
+
+.. literalinclude:: tutorial/asset-patch-2pc.http
    :language: javascript
 
 Success! Now we can see that new object was created. Response code is `201`

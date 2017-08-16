@@ -1,4 +1,4 @@
-PATCH /api/0.1/assets/ef68fbb73eca41ea9870335b79c65659?acc_token=4ef1c477b48f43718d7b089bca7aef07 HTTP/1.0
+PATCH /api/0.1/assets/f7d85ded1544424d82a3473f9467f80f?acc_token=1803ee39a2164a3dacd9aee5e581aa7d HTTP/1.0
 Authorization: Basic YnJva2VyOg==
 Content-Length: 31
 Content-Type: application/json
@@ -25,13 +25,13 @@ X-Content-Type-Options: nosniff
       "id": "37452200-3"
     }, 
     "title": "Земля для космодрому", 
-    "assetID": "UA-2017-08-14-000001", 
+    "assetID": "UA-2017-08-16-000001", 
     "value": {
       "currency": "UAH", 
       "amount": 100.0, 
       "valueAddedTaxIncluded": true
     }, 
-    "dateModified": "2017-08-14T18:14:14.332878+03:00", 
+    "dateModified": "2017-08-16T18:36:13.882146+03:00", 
     "owner": "broker", 
     "assetCustodian": {
       "contactPoint": {
@@ -59,8 +59,8 @@ X-Content-Type-Options: nosniff
       "region": "м. Київ", 
       "locality": "м. Київ"
     }, 
-    "date": "2017-08-14T18:14:14.332878+03:00", 
-    "id": "ef68fbb73eca41ea9870335b79c65659", 
+    "date": "2017-08-16T18:36:13.882146+03:00", 
+    "id": "f7d85ded1544424d82a3473f9467f80f", 
     "unit": {
       "code": "44617100-9", 
       "name": "item"
