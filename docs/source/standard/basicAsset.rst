@@ -134,6 +134,39 @@ Schema
         string, required
     :elevation:
         string, optional, usually not used
+        
+.. _assets_workflow: 
+
+Assets Workflow
+==============
+
+.. graphviz::
+
+    digraph G {
+            node [style=filled, color=lightgrey];
+            edge[style=dashed];
+            "draft" -> "pending";
+            edge[style=dashed]
+            "pending" -> "deleted";
+            edge[style=solid];
+            "pending" -> "locked";
+            edge[style=solid];
+            "locked" -> "pending";
+            edge[style=solid];
+            "locked" -> "active";
+            edge[style=solid];
+            "active" -> "pending";
+            edge[style=solid];
+            "active" -> "complete";
+    }
+
+
+Legend
+--------
+
+   * dashed line - user action
+    
+   * solid line - action is done automatically
 
 .. _Classification:
 
