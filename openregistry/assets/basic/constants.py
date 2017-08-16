@@ -12,7 +12,7 @@ STATUS_CHANGES = {
         "editing_permissions": ["asset_owner", "bot", "Administrator"],
         "next_status": {
             "deleted": ["asset_owner", "Administrator"],
-            "verification": ["asset_owner", "Administrator"]
+            "verification": ["bot", "Administrator"]
         }
     },
     "verification": {

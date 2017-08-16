@@ -475,11 +475,13 @@ def asset_bot_patch(self):
 
     self.app.authorization = ('Basic', ('bot', ''))
 
+
     response = self.app.get('/assets/{}'.format(asset['id']))
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['data'], asset)
 
+    # XXX TODO Draft to pending only asset owner
     # Move status from Draft to Pending
     response = self.app.patch_json('/assets/{}'.format(
         asset['id']), {'data': {'status': 'pending'}})
@@ -487,8 +489,6 @@ def asset_bot_patch(self):
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['data']['status'], 'pending')
 
-    # Change auth to broker
-    self.app.authorization = ('Basic', ('broker', ''))
 
     # Move status from pending to verification
     response = self.app.patch_json('/assets/{}?acc_token={}'.format(
@@ -507,8 +507,6 @@ def asset_bot_patch(self):
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['data']['status'], 'pending')
 
-    # Change auth to broker
-    self.app.authorization = ('Basic', ('broker', ''))
 
     # Move status from pending to verification
     response = self.app.patch_json('/assets/{}?acc_token={}'.format(
@@ -579,8 +577,6 @@ def asset_bot_patch(self):
     self.assertEqual(response.json['errors'][0]['location'], u'body')
     self.assertEqual(response.json['errors'][0]['description'], u"Can't update asset in current (pending) status")
 
-    # Change auth to broker
-    self.app.authorization = ('Basic', ('broker', ''))
 
     # Move status from pending to verification
     response = self.app.patch_json('/assets/{}?acc_token={}'.format(
@@ -589,10 +585,8 @@ def asset_bot_patch(self):
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['data']['status'], 'verification')
 
-    # Change auth to bot
-    self.app.authorization = ('Basic', ('bot', ''))
 
-    # Move status from Pending to Verification
+    # Move status from verification to active
     response = self.app.patch_json('/assets/{}'.format(
         asset['id']), {'data': {'status': 'active'}})
     self.assertEqual(response.status, '200 OK')
