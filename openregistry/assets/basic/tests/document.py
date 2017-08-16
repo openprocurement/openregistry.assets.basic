@@ -7,51 +7,39 @@ from openregistry.assets.basic.tests.base import (
     AssetContentWebTest
 )
 from openregistry.assets.basic.tests.document_blanks import (
-    # AssetDocumentResourceTest
-    not_found,
-    create_document_active_tendering_status,
-    create_tender_document,
-    put_tender_document,
-    patch_tender_document,
     # AssetDocumentWithDSResourceTest
-    create_tender_document_error,
-    create_tender_document_json_invalid,
-    create_tender_document_json,
-    put_tender_document_json
+    not_found,
+    create_document_in_active_asset_status,
+    put_asset_document_invalid,
+    patch_asset_document,
+    create_asset_document_error,
+    create_asset_document_json_invalid,
+    create_asset_document_json,
+    put_asset_document_json
 )
 
 
-class AssetDocumentResourceTestMixin(object):
-    forbidden_document_modification_actions_status = 'active'  # status, in which operations with tender documents (adding, updating) are forbidden
-
-    test_not_found = snitch(not_found)
-    test_create_tender_document = snitch(create_tender_document)
-    test_put_tender_document = snitch(put_tender_document)
-    test_patch_tender_document = snitch(patch_tender_document)
-
-
-class AssetDocumentWithDSResourceTestMixin(object):
-    test_create_tender_document_json_invalid = snitch(create_tender_document_json_invalid)
-    test_create_tender_document_json = snitch(create_tender_document_json)
-    test_put_tender_document_json = snitch(put_tender_document_json)
-
-
-class AssetDocumentResourceTest(AssetContentWebTest, AssetDocumentResourceTestMixin):
-    relative_to = os.path.dirname(__file__)
-
-    test_create_document_active_tendering_status = snitch(create_document_active_tendering_status)
-
-
-class AssetDocumentWithDSResourceTest(AssetDocumentResourceTest, AssetDocumentWithDSResourceTestMixin):
+class AssetDocumentWithDSResourceTest(AssetContentWebTest):
     docservice = True
     relative_to = os.path.dirname(__file__)
 
-    test_create_tender_document_error = snitch(create_tender_document_error)
+    initial_status = 'pending'
+    # status, in which operations with asset documents (adding, updating) are forbidden
+    forbidden_document_modification_actions_status = 'active'
+
+    test_create_asset_document_json = snitch(create_asset_document_json)
+    test_put_asset_document_json = snitch(put_asset_document_json)
+    test_patch_asset_document = snitch(patch_asset_document)
+
+    test_not_found = snitch(not_found)
+    test_create_document_active_status = snitch(create_document_in_active_asset_status)
+    test_create_asset_document_error = snitch(create_asset_document_error)
+    test_create_asset_document_json_invalid = snitch(create_asset_document_json_invalid)
+    test_put_asset_document_invalid = snitch(put_asset_document_invalid)
 
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(AssetDocumentResourceTest))
     suite.addTest(unittest.makeSuite(AssetDocumentWithDSResourceTest))
     return suite
 

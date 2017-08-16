@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from openregistry.api.utils import (
     get_file,
-    upload_file,
     update_file_content_type,
     json_view,
     context_unpack,
@@ -12,13 +11,16 @@ from openregistry.assets.core.utils import (
 )
 
 from openregistry.api.validation import (
-    validate_file_update,
     validate_file_upload,
+    validate_document_data,
     validate_patch_document_data,
 )
-from openregistry.assets.core.validation import validate_asset_document_update_not_by_author_or_asset_owner
-
-from openregistry.assets.basic.validation import validate_document_operation_in_not_allowed_asset_status
+from openregistry.assets.core.validation import (
+    validate_asset_document_update_not_by_author_or_asset_owner
+)
+from openregistry.assets.basic.validation import (
+    validate_document_operation_in_not_allowed_asset_status
+)
 
 
 @opassetsresource(name='basic:Asset Documents',
@@ -40,10 +42,10 @@ class AssetDocumentResource(APIResource):
             ]).values(), key=lambda i: i['dateModified'])
         return {'data': collection_data}
 
-    @json_view(permission='upload_asset_documents', validators=(validate_file_upload, validate_document_operation_in_not_allowed_asset_status))
+    @json_view(content_type="application/json", permission='upload_asset_documents', validators=(validate_file_upload, validate_document_operation_in_not_allowed_asset_status))
     def collection_post(self):
         """Asset Document Upload"""
-        document = upload_file(self.request)
+        document = self.request.validated['document']
         document.author = self.request.authenticated_role
         self.context.documents.append(document)
         if save_asset(self.request):
@@ -68,11 +70,11 @@ class AssetDocumentResource(APIResource):
         ]
         return {'data': document_data}
 
-    @json_view(permission='upload_asset_documents', validators=(validate_file_update, validate_document_operation_in_not_allowed_asset_status,
+    @json_view(content_type="application/json", permission='upload_asset_documents', validators=(validate_document_data, validate_document_operation_in_not_allowed_asset_status,
                validate_asset_document_update_not_by_author_or_asset_owner))
     def put(self):
         """Asset Document Update"""
-        document = upload_file(self.request)
+        document = self.request.validated['document']
         self.request.validated['asset'].documents.append(document)
         if save_asset(self.request):
             self.LOGGER.info('Updated asset document {}'.format(self.request.context.id),
