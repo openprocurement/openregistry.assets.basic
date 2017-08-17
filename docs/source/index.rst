@@ -24,6 +24,7 @@ Contents:
 
    overview
    standard/index
+   assetsWorkflow
    tutorial
    assets
    authentication
