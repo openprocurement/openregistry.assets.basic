@@ -172,7 +172,7 @@ def patch_asset_document(self):
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['status'], 'error')
     self.assertEqual(response.json['errors'], [
-        {u'description': [u"Value must be one of ['asset']."], u'location': u'body', u'name': u'documentOf'}
+        {u'description': [u"Value must be one of ['asset', 'lot']."], u'location': u'body', u'name': u'documentOf'}
     ])
 
     response = self.app.patch_json('/assets/{}/documents/{}?acc_token={}'.format(self.asset_id, doc_id, self.asset_token), {"data": {
