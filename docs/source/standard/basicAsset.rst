@@ -149,11 +149,11 @@ Assets Workflow
             edge[style=dashed]
             "pending" -> "deleted";
             edge[style=solid];
-            "pending" -> "locked";
+            "pending" -> "verification";
             edge[style=solid];
-            "locked" -> "pending";
+            "verification" -> "pending";
             edge[style=solid];
-            "locked" -> "active";
+            "verification" -> "active";
             edge[style=solid];
             "active" -> "pending";
             edge[style=solid];
