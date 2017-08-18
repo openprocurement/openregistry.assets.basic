@@ -473,6 +473,21 @@ def asset_not_found(self):
 def asset_concierge_patch(self):
     asset = self.create_asset()
 
+    lot_id = uuid4().hex
+
+    response = self.app.patch_json('/assets/{}'.format(
+        asset['id']), {'data': {'relatedLot': lot_id}})
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+    self.assertEqual(response.json['data']['relatedLot'], lot_id)
+
+    response = self.app.patch_json('/assets/{}'.format(
+        asset['id']), {'data': {'relatedLot': None}})
+    self.assertEqual(response.status, '200 OK')
+    self.assertEqual(response.content_type, 'application/json')
+    related_lot = response.json['data'].get('relatedLot', '')
+    self.assertEqual(related_lot, '')
+
     response = self.app.get('/assets/{}'.format(asset['id']))
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
