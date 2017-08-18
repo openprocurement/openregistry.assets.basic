@@ -156,7 +156,7 @@ class AssetResourceTest(BaseAssetWebTest):
                                            {'data': {"status": "deleted"}})
             self.assertEqual(response.status, '200 OK')
 
-    def test_docs_tutorial_with_bot(self):
+    def test_docs_tutorial_with_concierge(self):
         request_path = '/assets?opt_pretty=1'
 
         response = self.app.post_json(
@@ -170,29 +170,27 @@ class AssetResourceTest(BaseAssetWebTest):
                                        {'data': {"status": 'pending'}})
         self.assertEqual(response.status, '200 OK')
 
-        # Switch to Verification
+        # Switch to Active
         #
 
-        self.app.authorization = ('Basic', ('bot', ''))
+        self.app.authorization = ('Basic', ('concierge', ''))
 
-        response = self.app.patch_json('/assets/{}?acc_token={}'.format(asset_id, owner_token),
+        response = self.app.patch_json('/assets/{}'.format(asset_id),
                                        {'data': {"status": 'verification',
                                                  "relatedLot": uuid4().hex}})
         self.assertEqual(response.status, '200 OK')
 
 
-        response = self.app.patch_json('/assets/{}?acc_token={}'.format(asset_id, owner_token),
+        response = self.app.patch_json('/assets/{}'.format(asset_id),
                                        {'data': {"status": 'active'}})
         self.assertEqual(response.status, '200 OK')
 
-        # Switch to Active
-        #
 
         with open('docs/source/tutorial/attached-to-lot-asset-view.http', 'w') as self.app.file_obj:
             response = self.app.get('/assets/{}'.format(asset_id))
             self.assertEqual(response.status, '200 OK')
 
-        self.app.authorization = ('Basic', ('bot', ''))
+        self.app.authorization = ('Basic', ('concierge', ''))
 
         response = self.app.patch_json('/assets/{}'.format(asset_id),
                                        {'data': {"status": 'pending',
@@ -203,14 +201,14 @@ class AssetResourceTest(BaseAssetWebTest):
             response = self.app.get('/assets/{}'.format(asset_id))
             self.assertEqual(response.status, '200 OK')
 
-        self.app.authorization = ('Basic', ('bot', ''))
+        self.app.authorization = ('Basic', ('concierge', ''))
 
-        response = self.app.patch_json('/assets/{}?acc_token={}'.format(asset_id, owner_token),
+        response = self.app.patch_json('/assets/{}'.format(asset_id),
                                        {'data': {"status": 'verification',
                                                  "relatedLot": uuid4().hex}})
         self.assertEqual(response.status, '200 OK')
 
-        self.app.authorization = ('Basic', ('bot', ''))
+        self.app.authorization = ('Basic', ('concierge', ''))
 
         response = self.app.patch_json('/assets/{}'.format(asset_id),
                                        {'data': {"status": 'active'}})

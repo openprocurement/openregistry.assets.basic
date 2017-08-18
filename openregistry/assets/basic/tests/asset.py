@@ -17,7 +17,7 @@ from openregistry.assets.basic.tests.asset_blanks import (
     listing_changes,
     create_asset,
     patch_asset,
-    asset_bot_patch,
+    asset_concierge_patch,
     # AssetTest
     simple_add_asset,
     administrator_change_delete_status,
@@ -34,7 +34,7 @@ class AssetResourceTestMixin(object):
     test_06_asset_not_found = snitch(asset_not_found)
     test_07_create_asset = snitch(create_asset)
     test_08_patch_asset = snitch(patch_asset)
-    test_09_asset_bot_patch = snitch(asset_bot_patch)
+    test_09_asset_concierge_patch = snitch(asset_concierge_patch)
     test_10_administrator_change_delete_status = snitch(administrator_change_delete_status)
     test_11_administrator_change_complete_status = snitch(administrator_change_complete_status)
 

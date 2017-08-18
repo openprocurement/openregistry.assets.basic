@@ -9,24 +9,24 @@ STATUS_CHANGES = {
         }
     },
     "pending": {
-        "editing_permissions": ["asset_owner", "bot", "Administrator"],
+        "editing_permissions": ["asset_owner", "concierge", "Administrator"],
         "next_status": {
             "deleted": ["asset_owner", "Administrator"],
-            "verification": ["bot", "Administrator"]
+            "verification": ["concierge", "Administrator"]
         }
     },
     "verification": {
-        "editing_permissions":  ["bot", "Administrator"],
+        "editing_permissions":  ["concierge", "Administrator"],
         "next_status": {
-            "active": ["bot", "Administrator"],
-            "pending": ["bot", "Administrator"]
+            "active": ["concierge", "Administrator"],
+            "pending": ["concierge", "Administrator"]
         }
     },
     "active": {
-        "editing_permissions": ["bot", "Administrator"],
+        "editing_permissions": ["concierge", "Administrator"],
         "next_status": {
-            "pending": ["bot", "Administrator"],
-            "complete": ["bot", "Administrator"]
+            "pending": ["concierge", "Administrator"],
+            "complete": ["concierge", "Administrator"]
         }
     },
     "deleted": {

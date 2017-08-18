@@ -470,35 +470,30 @@ def asset_not_found(self):
     self.assertEqual(response.status, '404 Not Found')
 
 
-def asset_bot_patch(self):
+def asset_concierge_patch(self):
     asset = self.create_asset()
-
-    self.app.authorization = ('Basic', ('bot', ''))
-
 
     response = self.app.get('/assets/{}'.format(asset['id']))
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['data'], asset)
 
-    # XXX TODO Draft to pending only asset owner
     # Move status from Draft to Pending
-    response = self.app.patch_json('/assets/{}'.format(
-        asset['id']), {'data': {'status': 'pending'}})
+    response = self.app.patch_json('/assets/{}?acc_token={}'.format(
+        asset['id'], self.asset_token), {'data': {'status': 'pending'}})
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['data']['status'], 'pending')
 
+    self.app.authorization = ('Basic', ('concierge', ''))
 
     # Move status from pending to verification
-    response = self.app.patch_json('/assets/{}?acc_token={}'.format(
-        asset['id'], self.asset_token), {'data': {'status': 'verification'}})
+    response = self.app.patch_json('/assets/{}'.format(
+        asset['id']), {'data': {'status': 'verification'}})
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['data']['status'], 'verification')
 
-    # Change auth to bot
-    self.app.authorization = ('Basic', ('bot', ''))
 
     # Move status from verification to Pending
     response = self.app.patch_json('/assets/{}'.format(
@@ -509,14 +504,11 @@ def asset_bot_patch(self):
 
 
     # Move status from pending to verification
-    response = self.app.patch_json('/assets/{}?acc_token={}'.format(
-        asset['id'], self.asset_token), {'data': {'status': 'verification'}})
+    response = self.app.patch_json('/assets/{}'.format(
+        asset['id']), {'data': {'status': 'verification'}})
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['data']['status'], 'verification')
-
-    # Change auth to bot
-    self.app.authorization = ('Basic', ('bot', ''))
 
     # Move status from verification to Active
     response = self.app.patch_json('/assets/{}'.format(
