@@ -13,5 +13,5 @@ areas that were not covered by it.
 
    basicAsset
    organization
-   
+   document
    
