@@ -58,13 +58,11 @@ test_asset_data = {
 
 
 class BaseAssetWebTest(BaseAWT):
-    initial_data = None
-    resource_data = deepcopy(test_asset_data)
+    initial_data = deepcopy(test_asset_data)
     initial_auth = ('Basic', ('broker', ''))
     relative_to = os.path.dirname(__file__)
 
 
 class AssetContentWebTest(BaseAssetWebTest):
-    initial_data = deepcopy(test_asset_data)
-    resource_data = None
+    init = True
     initial_status = 'pending'
