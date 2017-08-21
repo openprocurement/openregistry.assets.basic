@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 import os
+from copy import deepcopy
+
 from openregistry.assets.core.tests.base import (
     BaseAssetWebTest as BaseAWT
 )
+
 
 test_organization = {
     "name": u"Державне управління справами",
@@ -55,14 +58,13 @@ test_asset_data = {
 
 
 class BaseAssetWebTest(BaseAWT):
-    initial_data = BaseAWT
+    initial_data = None
+    resource_data = deepcopy(test_asset_data)
     initial_auth = ('Basic', ('broker', ''))
     relative_to = os.path.dirname(__file__)
 
 
 class AssetContentWebTest(BaseAssetWebTest):
-    initial_data = test_asset_data
-
-    def setUp(self):
-        super(AssetContentWebTest, self).setUp()
-        self.create_asset()
+    initial_data = deepcopy(test_asset_data)
+    resource_data = None
+    initial_status = 'pending'
