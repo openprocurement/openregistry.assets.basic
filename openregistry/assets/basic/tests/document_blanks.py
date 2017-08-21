@@ -3,7 +3,7 @@ from email.header import Header
 
 
 def not_found(self):
-    response = self.app.get('/assets/some_id/documents', status=404)
+    response = self.app.get('/some_id/documents', status=404)
     self.assertEqual(response.status, '404 Not Found')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['status'], 'error')
@@ -12,7 +12,7 @@ def not_found(self):
             u'url', u'name': u'asset_id'}
     ])
 
-    response = self.app.post('/assets/some_id/documents', status=404, upload_files=[
+    response = self.app.post('/some_id/documents', status=404, upload_files=[
                              ('file', 'name.doc', 'content')])
     self.assertEqual(response.status, '404 Not Found')
     self.assertEqual(response.content_type, 'application/json')
@@ -22,7 +22,7 @@ def not_found(self):
             u'url', u'name': u'asset_id'}
     ])
 
-    response = self.app.post('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
                              upload_files=[('file', u'укр.doc', 'content')],
                              status=415)
     self.assertEqual(response.status, '415 Unsupported Media Type')
@@ -30,7 +30,7 @@ def not_found(self):
     self.assertEqual(response.json['errors'][0]["description"],
                      "Content-Type header should be one of ['application/json']")
 
-    response = self.app.post_json('/assets/some_id/documents?acc_token={}'.format(self.asset_token),
+    response = self.app.post_json('/some_id/documents?acc_token={}'.format(self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': self.generate_docservice_url(),
@@ -45,7 +45,7 @@ def not_found(self):
             u'url', u'name': u'asset_id'}
     ])
 
-    response = self.app.put('/assets/some_id/documents/some_id', status=404, upload_files=[
+    response = self.app.put('/some_id/documents/some_id', status=404, upload_files=[
                             ('file', 'name.doc', 'content2')])
     self.assertEqual(response.status, '404 Not Found')
     self.assertEqual(response.content_type, 'application/json')
@@ -55,8 +55,8 @@ def not_found(self):
             u'url', u'name': u'asset_id'}
     ])
 
-    response = self.app.put('/assets/{}/documents/some_id?acc_token={}'.format(
-        self.asset_id, self.asset_token), status=404, upload_files=[('file', 'name.doc', 'content2')])
+    response = self.app.put('/{}/documents/some_id?acc_token={}'.format(
+        self.resource_id, self.resource_token), status=404, upload_files=[('file', 'name.doc', 'content2')])
     self.assertEqual(response.status, '404 Not Found')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['status'], 'error')
@@ -64,7 +64,7 @@ def not_found(self):
         {u'description': u'Not Found', u'location': u'url', u'name': u'document_id'}
     ])
 
-    response = self.app.get('/assets/some_id/documents/some_id', status=404)
+    response = self.app.get('/some_id/documents/some_id', status=404)
     self.assertEqual(response.status, '404 Not Found')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['status'], 'error')
@@ -73,8 +73,8 @@ def not_found(self):
             u'url', u'name': u'asset_id'}
     ])
 
-    response = self.app.get('/assets/{}/documents/some_id?acc_token={}'.format(
-        self.asset_id, self.asset_token), status=404)
+    response = self.app.get('/{}/documents/some_id?acc_token={}'.format(
+        self.resource_id, self.resource_token), status=404)
     self.assertEqual(response.status, '404 Not Found')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['status'], 'error')
@@ -87,7 +87,7 @@ def create_document_in_active_asset_status(self):
 
     self.set_status('active')
 
-    response = self.app.post_json('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post_json('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': self.generate_docservice_url(),
@@ -106,7 +106,7 @@ def put_asset_document_invalid(self):
     environ = self.app._make_environ()
     environ['CONTENT_TYPE'] = 'multipart/form-data; boundary=BOUNDARY'
     environ['REQUEST_METHOD'] = 'POST'
-    req = self.app.RequestClass.blank(self.app._remove_fragment('/assets/{}/documents'.format(self.asset_id)), environ)
+    req = self.app.RequestClass.blank(self.app._remove_fragment('/{}/documents'.format(self.resource_id)), environ)
     req.environ['wsgi.input'] = BytesIO(body.encode('utf8'))
     req.content_length = len(body)
     response = self.app.do_request(req, status=422)
@@ -118,7 +118,7 @@ def put_asset_document_invalid(self):
     environ = self.app._make_environ()
     environ['CONTENT_TYPE'] = 'multipart/form-data; boundary=BOUNDARY'
     environ['REQUEST_METHOD'] = 'POST'
-    req = self.app.RequestClass.blank(self.app._remove_fragment('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token)), environ)
+    req = self.app.RequestClass.blank(self.app._remove_fragment('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token)), environ)
     req.environ['wsgi.input'] = BytesIO(body.encode(req.charset or 'utf8'))
     req.content_length = len(body)
     response = self.app.do_request(req, status=415)
@@ -127,7 +127,7 @@ def put_asset_document_invalid(self):
     self.assertEqual(response.json['errors'][0]["description"],
                      "Content-Type header should be one of ['application/json']")
 
-    response = self.app.post_json('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post_json('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': self.generate_docservice_url(),
@@ -140,8 +140,8 @@ def put_asset_document_invalid(self):
     doc_id = response.json["data"]['id']
     self.assertIn(doc_id, response.headers['Location'])
 
-    response = self.app.put('/assets/{}/documents/{}?acc_token={}'.format(
-        self.asset_id, doc_id, self.asset_token), upload_files=[('file', 'name  name.doc', 'content2')], status=415)
+    response = self.app.put('/{}/documents/{}?acc_token={}'.format(
+        self.resource_id, doc_id, self.resource_token), upload_files=[('file', 'name  name.doc', 'content2')], status=415)
     self.assertEqual(response.status, '415 Unsupported Media Type')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]["description"],
@@ -149,7 +149,7 @@ def put_asset_document_invalid(self):
 
 
 def patch_asset_document(self):
-    response = self.app.post_json('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post_json('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': self.generate_docservice_url(),
@@ -164,7 +164,7 @@ def patch_asset_document(self):
     self.assertEqual(u'укр.doc', response.json["data"]["title"])
     self.assertNotIn("documentType", response.json["data"])
 
-    response = self.app.patch_json('/assets/{}/documents/{}?acc_token={}'.format(self.asset_id, doc_id, self.asset_token), {"data": {
+    response = self.app.patch_json('/{}/documents/{}?acc_token={}'.format(self.resource_id, doc_id, self.resource_token), {"data": {
         "documentOf": "item",
         "relatedItem": '0' * 32
     }}, status=422)
@@ -175,7 +175,7 @@ def patch_asset_document(self):
         {u'description': [u"Value must be one of ['asset', 'lot']."], u'location': u'body', u'name': u'documentOf'}
     ])
 
-    response = self.app.patch_json('/assets/{}/documents/{}?acc_token={}'.format(self.asset_id, doc_id, self.asset_token), {"data": {
+    response = self.app.patch_json('/{}/documents/{}?acc_token={}'.format(self.resource_id, doc_id, self.resource_token), {"data": {
         "description": "document description",
         "documentType": 'tenderNotice'
     }}, status=422)
@@ -185,7 +185,7 @@ def patch_asset_document(self):
     self.assertEqual(response.json['errors'], [
         {u'description': [u"Value must be one of []."], u'location': u'body', u'name': u'documentType'}
     ])
-    response = self.app.patch_json('/assets/{}/documents/{}?acc_token={}'.format(self.asset_id, doc_id, self.asset_token), {"data": {
+    response = self.app.patch_json('/{}/documents/{}?acc_token={}'.format(self.resource_id, doc_id, self.resource_token), {"data": {
         "description": "document description",
     }})
     self.assertEqual(response.status, '200 OK')
@@ -193,7 +193,7 @@ def patch_asset_document(self):
     self.assertEqual(doc_id, response.json["data"]["id"])
     self.assertNotIn("documentType", response.json["data"])
 
-    response = self.app.get('/assets/{}/documents/{}?acc_token={}'.format(self.asset_id, doc_id, self.asset_token))
+    response = self.app.get('/{}/documents/{}?acc_token={}'.format(self.resource_id, doc_id, self.resource_token))
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(doc_id, response.json["data"]["id"])
@@ -202,7 +202,7 @@ def patch_asset_document(self):
 
     self.set_status(self.forbidden_document_modification_actions_status)
 
-    response = self.app.patch_json('/assets/{}/documents/{}?acc_token={}'.format(self.asset_id, doc_id, self.asset_token), {"data": {"description": "document description"}}, status=403)
+    response = self.app.patch_json('/{}/documents/{}?acc_token={}'.format(self.resource_id, doc_id, self.resource_token), {"data": {"description": "document description"}}, status=403)
     self.assertEqual(response.status, '403 Forbidden')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]["description"], "Can't update document in current ({}) asset status".format(self.forbidden_document_modification_actions_status))
@@ -212,7 +212,7 @@ def patch_asset_document(self):
 
 
 def create_asset_document_error(self):
-    response = self.app.post('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
                              upload_files=[('file', u'укр.doc', 'content')],
                              status=415)
     self.assertEqual(response.status, '415 Unsupported Media Type')
@@ -221,7 +221,7 @@ def create_asset_document_error(self):
                      "Content-Type header should be one of ['application/json']")
 
     self.tearDownDS()
-    response = self.app.post('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
                              upload_files=[('file', u'укр.doc', 'content')],
                              status=415)
     self.assertEqual(response.status, '415 Unsupported Media Type')
@@ -230,7 +230,7 @@ def create_asset_document_error(self):
                      "Content-Type header should be one of ['application/json']")
 
     self.setUpBadDS()
-    response = self.app.post('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
                              upload_files=[('file', u'укр.doc', 'content')],
                              status=415)
     self.assertEqual(response.status, '415 Unsupported Media Type')
@@ -240,7 +240,7 @@ def create_asset_document_error(self):
 
 
 def create_asset_document_json_invalid(self):
-    response = self.app.post_json('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post_json('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': self.generate_docservice_url(),
@@ -250,7 +250,7 @@ def create_asset_document_json_invalid(self):
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]["description"], "This field is required.")
 
-    response = self.app.post_json('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post_json('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': self.generate_docservice_url(),
@@ -263,7 +263,7 @@ def create_asset_document_json_invalid(self):
         {u'description': [u'Hash type is not supported.'], u'location': u'body', u'name': u'hash'}
     ])
 
-    response = self.app.post_json('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post_json('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': self.generate_docservice_url(),
@@ -276,7 +276,7 @@ def create_asset_document_json_invalid(self):
         {u'description': [u'Hash type is not supported.'], u'location': u'body', u'name': u'hash'}
     ])
 
-    response = self.app.post_json('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post_json('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': self.generate_docservice_url(),
@@ -289,7 +289,7 @@ def create_asset_document_json_invalid(self):
         {u'description': [u'Hash value is wrong length.'], u'location': u'body', u'name': u'hash'}
     ])
 
-    response = self.app.post_json('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post_json('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': self.generate_docservice_url(),
@@ -302,7 +302,7 @@ def create_asset_document_json_invalid(self):
         {u'description': [u'Hash value is not hexadecimal.'], u'location': u'body', u'name': u'hash'}
     ])
 
-    response = self.app.post_json('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post_json('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': 'http://invalid.docservice.url/get/uuid',
@@ -313,7 +313,7 @@ def create_asset_document_json_invalid(self):
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]["description"], "Can add document only from document service.")
 
-    response = self.app.post_json('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post_json('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': '/'.join(self.generate_docservice_url().split('/')[:4]),
@@ -324,7 +324,7 @@ def create_asset_document_json_invalid(self):
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]["description"], "Can add document only from document service.")
 
-    response = self.app.post_json('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post_json('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': self.generate_docservice_url().split('?')[0],
@@ -335,7 +335,7 @@ def create_asset_document_json_invalid(self):
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]["description"], "Can add document only from document service.")
 
-    response = self.app.post_json('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post_json('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': self.generate_docservice_url().replace(self.app.app.registry.keyring.keys()[-1], '0' * 8),
@@ -346,7 +346,7 @@ def create_asset_document_json_invalid(self):
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]["description"], "Document url expired.")
 
-    response = self.app.post_json('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post_json('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': self.generate_docservice_url().replace("Signature=", "Signature=ABC"),
@@ -357,7 +357,7 @@ def create_asset_document_json_invalid(self):
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]["description"], "Document url signature invalid.")
 
-    response = self.app.post_json('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post_json('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': self.generate_docservice_url().replace("Signature=", "Signature=bw%3D%3D"),
@@ -370,7 +370,7 @@ def create_asset_document_json_invalid(self):
 
 
 def create_asset_document_json(self):
-    response = self.app.post_json('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post_json('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': self.generate_docservice_url(),
@@ -386,20 +386,20 @@ def create_asset_document_json(self):
     self.assertIn('KeyID=', response.json["data"]["url"])
     self.assertNotIn('Expires=', response.json["data"]["url"])
     key = response.json["data"]["url"].split('/')[-1].split('?')[0]
-    tender = self.db.get(self.asset_id)
+    tender = self.db.get(self.resource_id)
     self.assertIn(key, tender['documents'][-1]["url"])
     self.assertIn('Signature=', tender['documents'][-1]["url"])
     self.assertIn('KeyID=', tender['documents'][-1]["url"])
     self.assertNotIn('Expires=', tender['documents'][-1]["url"])
 
-    response = self.app.get('/assets/{}/documents'.format(self.asset_id))
+    response = self.app.get('/{}/documents'.format(self.resource_id))
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(doc_id, response.json["data"][0]["id"])
     self.assertEqual(u'укр.doc', response.json["data"][0]["title"])
 
-    response = self.app.get('/assets/{}/documents/{}?download=some_id'.format(
-        self.asset_id, doc_id), status=404)
+    response = self.app.get('/{}/documents/{}?download=some_id'.format(
+        self.resource_id, doc_id), status=404)
     self.assertEqual(response.status, '404 Not Found')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['status'], 'error')
@@ -407,16 +407,16 @@ def create_asset_document_json(self):
         {u'description': u'Not Found', u'location': u'url', u'name': u'download'}
     ])
 
-    response = self.app.get('/assets/{}/documents/{}?download={}'.format(
-        self.asset_id, doc_id, key))
+    response = self.app.get('/{}/documents/{}?download={}'.format(
+        self.resource_id, doc_id, key))
     self.assertEqual(response.status, '302 Moved Temporarily')
     self.assertIn('http://localhost/get/', response.location)
     self.assertIn('Signature=', response.location)
     self.assertIn('KeyID=', response.location)
     self.assertNotIn('Expires=', response.location)
 
-    response = self.app.get('/assets/{}/documents/{}'.format(
-        self.asset_id, doc_id))
+    response = self.app.get('/{}/documents/{}'.format(
+        self.resource_id, doc_id))
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(doc_id, response.json["data"]["id"])
@@ -424,7 +424,7 @@ def create_asset_document_json(self):
 
     self.set_status(self.forbidden_document_modification_actions_status)
 
-    response = self.app.post_json('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post_json('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': self.generate_docservice_url(),
@@ -438,7 +438,7 @@ def create_asset_document_json(self):
 
 
 def put_asset_document_json(self):
-    response = self.app.post_json('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post_json('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': self.generate_docservice_url(),
@@ -453,7 +453,7 @@ def put_asset_document_json(self):
     datePublished = response.json["data"]['datePublished']
     self.assertIn(doc_id, response.headers['Location'])
 
-    response = self.app.put_json('/assets/{}/documents/{}?acc_token={}'.format(self.asset_id, doc_id, self.asset_token),
+    response = self.app.put_json('/{}/documents/{}?acc_token={}'.format(self.resource_id, doc_id, self.resource_token),
         {'data': {
             'title': u'name.doc',
             'url': self.generate_docservice_url(),
@@ -467,22 +467,22 @@ def put_asset_document_json(self):
     self.assertIn('KeyID=', response.json["data"]["url"])
     self.assertNotIn('Expires=', response.json["data"]["url"])
     key = response.json["data"]["url"].split('/')[-1].split('?')[0]
-    tender = self.db.get(self.asset_id)
+    tender = self.db.get(self.resource_id)
     self.assertIn(key, tender['documents'][-1]["url"])
     self.assertIn('Signature=', tender['documents'][-1]["url"])
     self.assertIn('KeyID=', tender['documents'][-1]["url"])
     self.assertNotIn('Expires=', tender['documents'][-1]["url"])
 
-    response = self.app.get('/assets/{}/documents/{}?download={}'.format(
-        self.asset_id, doc_id, key))
+    response = self.app.get('/{}/documents/{}?download={}'.format(
+        self.resource_id, doc_id, key))
     self.assertEqual(response.status, '302 Moved Temporarily')
     self.assertIn('http://localhost/get/', response.location)
     self.assertIn('Signature=', response.location)
     self.assertIn('KeyID=', response.location)
     self.assertNotIn('Expires=', response.location)
 
-    response = self.app.get('/assets/{}/documents/{}'.format(
-        self.asset_id, doc_id))
+    response = self.app.get('/{}/documents/{}'.format(
+        self.resource_id, doc_id))
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(doc_id, response.json["data"]["id"])
@@ -492,13 +492,13 @@ def put_asset_document_json(self):
     self.assertEqual(dateModified, response.json["data"]["previousVersions"][0]['dateModified'])
     self.assertEqual(response.json["data"]['datePublished'], datePublished)
 
-    response = self.app.get('/assets/{}/documents?all=true'.format(self.asset_id))
+    response = self.app.get('/{}/documents?all=true'.format(self.resource_id))
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(dateModified, response.json["data"][0]['dateModified'])
     self.assertEqual(dateModified2, response.json["data"][1]['dateModified'])
 
-    response = self.app.post_json('/assets/{}/documents?acc_token={}'.format(self.asset_id, self.asset_token),
+    response = self.app.post_json('/{}/documents?acc_token={}'.format(self.resource_id, self.resource_token),
         {'data': {
             'title': 'name.doc',
             'url': self.generate_docservice_url(),
@@ -511,13 +511,13 @@ def put_asset_document_json(self):
     dateModified = response.json["data"]['dateModified']
     self.assertIn(doc_id, response.headers['Location'])
 
-    response = self.app.get('/assets/{}/documents'.format(self.asset_id))
+    response = self.app.get('/{}/documents'.format(self.resource_id))
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(dateModified2, response.json["data"][0]['dateModified'])
     self.assertEqual(dateModified, response.json["data"][1]['dateModified'])
 
-    response = self.app.put_json('/assets/{}/documents/{}?acc_token={}'.format(self.asset_id, doc_id, self.asset_token),
+    response = self.app.put_json('/{}/documents/{}?acc_token={}'.format(self.resource_id, doc_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': self.generate_docservice_url(),
@@ -531,14 +531,14 @@ def put_asset_document_json(self):
     self.assertIn('KeyID=', response.json["data"]["url"])
     self.assertNotIn('Expires=', response.json["data"]["url"])
     key = response.json["data"]["url"].split('/')[-1].split('?')[0]
-    tender = self.db.get(self.asset_id)
+    tender = self.db.get(self.resource_id)
     self.assertIn(key, tender['documents'][-1]["url"])
     self.assertIn('Signature=', tender['documents'][-1]["url"])
     self.assertIn('KeyID=', tender['documents'][-1]["url"])
     self.assertNotIn('Expires=', tender['documents'][-1]["url"])
 
-    response = self.app.get('/assets/{}/documents/{}?download={}'.format(
-        self.asset_id, doc_id, key))
+    response = self.app.get('/{}/documents/{}?download={}'.format(
+        self.resource_id, doc_id, key))
     self.assertEqual(response.status, '302 Moved Temporarily')
     self.assertIn('http://localhost/get/', response.location)
     self.assertIn('Signature=', response.location)
@@ -547,7 +547,7 @@ def put_asset_document_json(self):
 
     self.set_status(self.forbidden_document_modification_actions_status)
 
-    response = self.app.put_json('/assets/{}/documents/{}?acc_token={}'.format(self.asset_id, doc_id, self.asset_token),
+    response = self.app.put_json('/{}/documents/{}?acc_token={}'.format(self.resource_id, doc_id, self.resource_token),
         {'data': {
             'title': u'укр.doc',
             'url': self.generate_docservice_url(),

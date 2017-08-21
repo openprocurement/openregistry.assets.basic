@@ -18,10 +18,10 @@ from openregistry.assets.basic.tests.asset_blanks import (
     create_asset,
     patch_asset,
     asset_concierge_patch,
-    # AssetTest
-    simple_add_asset,
     administrator_change_delete_status,
     administrator_change_complete_status,
+    # AssetTest
+    simple_add_asset
 )
 
 
@@ -47,10 +47,7 @@ class AssetTest(BaseWebTest):
 
 
 class AssetResourceTest(BaseAssetWebTest, AssetResourceTestMixin):
-    initial_data = test_asset_data
-    initial_status = "pending"
-    initial_auth = ('Basic', ('broker', ''))
-    relative_to = os.path.dirname(__file__)
+    initial_status = 'pending'
 
 
 def suite():
