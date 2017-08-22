@@ -16,4 +16,4 @@ msgstr "Формат дати: ISO 8601"
 
 msgid ""
 "The date format is `ISO 8601 <http://en.wikipedia.org/wiki/ISO_8601>`_."
-msgstr "Формат дати: `ISO 8601 <http://en.wikipedia.org/wiki/ISO_8601>`_"
+msgstr "Формат дати `ISO 8601 <http://en.wikipedia.org/wiki/ISO_8601>`_"
