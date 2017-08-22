@@ -21,9 +21,7 @@ from openregistry.assets.basic.tests.document_blanks import (
 
 class AssetDocumentWithDSResourceTest(AssetContentWebTest):
     docservice = True
-    relative_to = os.path.dirname(__file__)
 
-    initial_status = 'pending'
     # status, in which operations with asset documents (adding, updating) are forbidden
     forbidden_document_modification_actions_status = 'active'
 
