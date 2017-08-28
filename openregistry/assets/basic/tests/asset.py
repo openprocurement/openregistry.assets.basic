@@ -51,10 +51,10 @@ class AssetResourceTest(BaseAssetWebTest, AssetResourceTestMixin):
 
 
 def suite():
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(AssetResourceTest))
-    suite.addTest(unittest.makeSuite(AssetTest))
-    return suite
+    tests = unittest.TestSuite()
+    tests.addTest(unittest.makeSuite(AssetResourceTest))
+    tests.addTest(unittest.makeSuite(AssetTest))
+    return tests
 
 
 if __name__ == '__main__':

@@ -6,10 +6,10 @@ from openregistry.assets.basic.tests import asset, document
 
 
 def suite():
-    suite = unittest.TestSuite()
-    suite.addTest(asset.suite())
-    suite.addTest(document.suite())
-    return suite
+    tests = unittest.TestSuite()
+    tests.addTest(asset.suite())
+    tests.addTest(document.suite())
+    return tests
 
 
 if __name__ == '__main__':

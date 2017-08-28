@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from email.header import Header
 
 
 def not_found(self):

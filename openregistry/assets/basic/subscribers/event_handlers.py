@@ -8,4 +8,3 @@ from openregistry.api.utils import get_now
 def tender_init_handler(event):
     """ initialization handler for basic assets """
     event.asset.date = get_now()
-

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import os
 import unittest
 
 from openregistry.api.tests.base import snitch
@@ -37,9 +36,9 @@ class AssetDocumentWithDSResourceTest(AssetContentWebTest):
 
 
 def suite():
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(AssetDocumentWithDSResourceTest))
-    return suite
+    tests = unittest.TestSuite()
+    tests.addTest(unittest.makeSuite(AssetDocumentWithDSResourceTest))
+    return tests
 
 
 if __name__ == '__main__':
