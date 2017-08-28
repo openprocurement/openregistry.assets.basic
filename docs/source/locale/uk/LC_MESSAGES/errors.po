@@ -139,7 +139,7 @@ msgid "Example Success Response"
 msgstr "Приклад відповіді з повідомленням про успіх"
 
 msgid "Here is a response that describes asset"
-msgstr "Це відповідь, що описує закупівлю."
+msgstr "Це відповідь, що описує актив."
 
 msgid "Error Response"
 msgstr "Відповідь з повідомленням про помилку"

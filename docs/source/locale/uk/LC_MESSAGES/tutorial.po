@@ -115,7 +115,7 @@ msgid ""
 "Additionally, the `dateModified` property was updated to reflect the last "
 "modification datestamp."
 msgstr ""
-"Ми бачимо, що додаткові властивості об’єднані з існуючими даними аукціону. "
+"Ми бачимо, що додаткові властивості об’єднані з існуючими даними активу. "
 "Додатково оновлена властивість dateModified, щоб відображати останню дату "
 "модифікації."
 
