@@ -58,9 +58,12 @@ test_asset_data = {
 
 
 class BaseAssetWebTest(BaseAWT):
-    initial_data = deepcopy(test_asset_data)
     initial_auth = ('Basic', ('broker', ''))
     relative_to = os.path.dirname(__file__)
+
+    def setUp(self):
+        self.initial_data = deepcopy(test_asset_data)
+        super(BaseAssetWebTest, self).setUp()
 
 
 class AssetContentWebTest(BaseAssetWebTest):
