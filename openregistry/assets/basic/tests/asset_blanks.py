@@ -40,9 +40,8 @@ def patch_asset(self):
     dateModified = asset.pop('dateModified')
 
     response = self.app.patch_json('/{}'.format(asset['id']),
-        headers={'X-Access-Token': self.resource_token}, params={
-            'data': {'title': ' PATCHED'}}
-    )
+                                   headers=self.access_header,
+                                   params={'data': {'title': ' PATCHED'}})
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertNotEqual(response.json['data']['dateModified'], dateModified)
@@ -52,10 +51,9 @@ def patch_asset(self):
 
     # Move status from Draft to Active
     response = self.app.patch_json('/{}'.format(asset['id']),
-        headers={'X-Access-Token': self.resource_token}, params={
-            'data': {'status': 'active'}},
-        status=403
-    )
+                                   headers=self.access_header,
+                                   params={'data': {'status': 'active'}},
+                                   status=403)
     self.assertEqual(response.status, '403 Forbidden')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]['name'], u'data')
@@ -64,10 +62,9 @@ def patch_asset(self):
 
     # Move status from Draft to Deleted
     response = self.app.patch_json('/{}'.format(asset['id']),
-        headers={'X-Access-Token': self.resource_token}, params={
-            'data': {'status': 'deleted'}},
-        status=403
-    )
+                                   headers=self.access_header,
+                                   params={'data': {'status': 'deleted'}},
+                                   status=403)
     self.assertEqual(response.status, '403 Forbidden')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]['name'], u'data')
@@ -76,10 +73,9 @@ def patch_asset(self):
 
     # Move status from Draft to Complete
     response = self.app.patch_json('/{}'.format(asset['id']),
-        headers={'X-Access-Token': self.resource_token}, params={
-            'data': {'status': 'complete'}},
-        status=403
-    )
+                                   headers=self.access_header,
+                                   params={'data': {'status': 'complete'}},
+                                   status=403)
     self.assertEqual(response.status, '403 Forbidden')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]['name'], u'data')
@@ -88,19 +84,17 @@ def patch_asset(self):
 
     # Move status from Draft to Pending
     response = self.app.patch_json('/{}'.format(asset['id']),
-        headers={'X-Access-Token': self.resource_token}, params={
-            'data': {'status': 'pending'}}
-    )
+                                   headers=self.access_header,
+                                   params={'data': {'status': 'pending'}})
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['data']['status'], 'pending')
 
     # Move status from Pending to Draft
     response = self.app.patch_json('/{}'.format(asset['id']),
-        headers={'X-Access-Token': self.resource_token}, params={
-            'data': {'status': 'draft'}},
-        status=403
-    )
+                                   headers=self.access_header,
+                                   params={'data': {'status': 'draft'}},
+                                   status=403)
     self.assertEqual(response.status, '403 Forbidden')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]['name'], u'data')
@@ -109,10 +103,9 @@ def patch_asset(self):
 
     # Move status from Pending to Active
     response = self.app.patch_json('/{}'.format(asset['id']),
-        headers={'X-Access-Token': self.resource_token}, params={
-            'data': {'status': 'active'}},
-        status=403
-    )
+                                   headers=self.access_header,
+                                   params={'data': {'status': 'active'}},
+                                   status=403)
     self.assertEqual(response.status, '403 Forbidden')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]['name'], u'data')
@@ -121,10 +114,9 @@ def patch_asset(self):
 
     # Move status from Pending to Complete
     response = self.app.patch_json('/{}'.format(asset['id']),
-        headers={'X-Access-Token': self.resource_token}, params={
-            'data': {'status': 'complete'}},
-        status=403
-    )
+                                   headers=self.access_header,
+                                   params={'data': {'status': 'complete'}},
+                                   status=403)
     self.assertEqual(response.status, '403 Forbidden')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]['name'], u'data')
@@ -133,19 +125,17 @@ def patch_asset(self):
 
     # Move status from Pending to Deleted
     response = self.app.patch_json('/{}'.format(asset['id']),
-        headers={'X-Access-Token': self.resource_token}, params={
-            'data': {'status': 'deleted'}}
-    )
+                                   headers=self.access_header,
+                                   params={'data': {'status': 'deleted'}})
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['data']['status'], 'deleted')
 
     # Move status from Deleted to Draft
     response = self.app.patch_json('/{}'.format(asset['id']),
-        headers={'X-Access-Token': self.resource_token}, params={
-            'data': {'status': 'draft'}},
-        status=403
-    )
+                                   headers=self.access_header,
+                                   params={'data': {'status': 'draft'}},
+                                   status=403)
     self.assertEqual(response.status, '403 Forbidden')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]['name'], u'data')
@@ -154,10 +144,9 @@ def patch_asset(self):
 
     # Move status from Deleted to Pending
     response = self.app.patch_json('/{}'.format(asset['id']),
-        headers={'X-Access-Token': self.resource_token}, params={
-            'data': {'status': 'pending'}},
-        status=403
-    )
+                                   headers=self.access_header,
+                                   params={'data': {'status': 'pending'}},
+                                   status=403)
     self.assertEqual(response.status, '403 Forbidden')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]['name'], u'data')
@@ -166,10 +155,9 @@ def patch_asset(self):
 
     # Move status from Deleted to Active
     response = self.app.patch_json('/{}'.format(asset['id']),
-        headers={'X-Access-Token': self.resource_token}, params={
-            'data': {'status': 'active'}},
-        status=403
-    )
+                                   headers=self.access_header,
+                                   params={'data': {'status': 'active'}},
+                                   status=403)
     self.assertEqual(response.status, '403 Forbidden')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]['name'], u'data')
@@ -178,10 +166,9 @@ def patch_asset(self):
 
     # Move status from Deleted to Complete
     response = self.app.patch_json('/{}'.format(asset['id']),
-        headers={'X-Access-Token': self.resource_token}, params={
-            'data': {'status': 'complete'}},
-        status=403
-    )
+                                   headers=self.access_header,
+                                   params={'data': {'status': 'complete'}},
+                                   status=403)
     self.assertEqual(response.status, '403 Forbidden')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['errors'][0]['name'], u'data')
@@ -199,9 +186,8 @@ def asset_concierge_patch(self):
 
     # Move status from Draft to Pending
     response = self.app.patch_json('/{}'.format(asset['id']),
-        headers={'X-Access-Token': self.resource_token}, params={
-            'data': {'status': 'pending'}}
-    )
+                                   headers=self.access_header,
+                                   params={'data': {'status': 'pending'}})
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['data']['status'], 'pending')
@@ -293,9 +279,8 @@ def asset_concierge_patch(self):
 
     # Move status from pending to verification
     response = self.app.patch_json('/{}'.format(asset['id']),
-        headers={'X-Access-Token': self.resource_token}, params={
-            'data': {'status': 'verification'}}
-    )
+                                   headers=self.access_header,
+                                   params={'data': {'status': 'verification'}})
     self.assertEqual(response.status, '200 OK')
     self.assertEqual(response.content_type, 'application/json')
     self.assertEqual(response.json['data']['status'], 'verification')
