@@ -2,11 +2,11 @@
 import unittest
 from copy import deepcopy
 
-from openregistry.api.tests.blanks.document import test_document_data
 from openregistry.api.tests.blanks.mixins import ResourceDocumentTestMixin
 from openregistry.assets.basic.tests.base import (
     AssetContentWebTest
 )
+from openregistry.api.tests.blanks.json_data import test_document_data
 
 
 class AssetDocumentWithDSResourceTest(AssetContentWebTest, ResourceDocumentTestMixin):
