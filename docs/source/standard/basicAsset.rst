@@ -96,8 +96,8 @@ Schema
 
     The primary classification for the asset.
 
-    It is required for `classification.scheme` to be `CPV`. The
-    `classification.id` should be valid CPV code.
+    It is required for `classification.scheme` to be `CAV`. The
+    `classification.id` should be valid CAV code.
 
 :additionalClassifications:
     List of :ref:`Classification` objects, optioanl
@@ -108,7 +108,7 @@ Schema
     This may also be used to present codes from an internal classification
     scheme.
 
-    One of the possible additional classifiers is CPVS.
+    One of the possible additional classifiers is CAVS.
 
 :unit:
     :ref:`Unit`, required

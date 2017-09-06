@@ -12,9 +12,9 @@ X-Content-Type-Options: nosniff
     "status": "active", 
     "relatedLot": "140e37e9351d461bb5f6765f6f3ba5a9", 
     "classification": {
-      "scheme": "CPV", 
+      "scheme": "CAV",
       "description": "Земельні ділянки", 
-      "id": "37452200-3"
+      "id": "39513200-3"
     }, 
     "assetType": "basic", 
     "assetID": "UA-2017-08-16-000001", 
@@ -55,7 +55,7 @@ X-Content-Type-Options: nosniff
     "date": "2017-08-16T18:36:14.510454+03:00", 
     "id": "11ff5b04c97040c1882f0565ab43381a", 
     "unit": {
-      "code": "44617100-9", 
+      "code": "39513200-3",
       "name": "item"
     }, 
     "quantity": 5

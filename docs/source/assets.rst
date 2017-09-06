@@ -123,9 +123,9 @@ Reading the individual asset information
           "status": "pending",
           "assetType": "basic",
           "classification": {
-            "scheme": "CPV",
+            "scheme": "CAV",
             "description": "Земельні ділянки",
-            "id": "37452200-3"
+            "id": "39513200-3"
           },
           "title": "Земля для космодрому",
           "assetID": "UA-2017-08-14-000001",
@@ -165,7 +165,7 @@ Reading the individual asset information
           "date": "2017-08-14T13:35:31.472331+03:00",
           "id": "2f684c8a57f447768a5a451e2e8e5892",
           "unit": {
-            "code": "44617100-9",
+            "code": "39513200-3",
             "name": "item"
           },
           "quantity": 5
