@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from openregistry.assets.core.adapters import AssetConfigurator
-from .constants import STATUS_CHANGES
+from openregistry.assets.core.constants import STATUS_CHANGES
 
 
 class BasicAssetConfigurator(AssetConfigurator):
