@@ -1,36 +1,25 @@
 # -*- coding: utf-8 -*-
-import os
 import unittest
 
-from openregistry.api.tests.base import BaseWebTest, snitch
 from openregistry.api.tests.blanks.mixins import ResourceTestMixin
 
 from openregistry.assets.core.tests.blanks.mixins import AssetResourceTestMixin
 
+from openregistry.assets.basic.models import Asset as AssetBasic
 from openregistry.assets.basic.tests.base import (
     test_asset_basic_data, BaseAssetWebTest
 )
-from openregistry.assets.basic.tests.asset_blanks import (
-    # AssetTest
-    simple_add_asset
-)
-
-
-class AssetBasicTest(BaseWebTest):
-    initial_data = test_asset_basic_data
-    relative_to = os.path.dirname(__file__)
-
-    test_simple_add_asset = snitch(simple_add_asset)
 
 
 class AssetBasicResourceTest(BaseAssetWebTest, ResourceTestMixin, AssetResourceTestMixin):
+    asset_model = AssetBasic
+    initial_data = test_asset_basic_data
     initial_status = 'pending'
 
 
 def suite():
     tests = unittest.TestSuite()
     tests.addTest(unittest.makeSuite(AssetBasicResourceTest))
-    tests.addTest(unittest.makeSuite(AssetBasicTest))
     return tests
 
 
