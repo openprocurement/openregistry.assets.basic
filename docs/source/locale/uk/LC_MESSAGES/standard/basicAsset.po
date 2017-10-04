@@ -70,7 +70,7 @@ msgid "``title_ru`` (Russian) - Russian title"
 msgstr "``title_ru`` (Russian) - заголовок російською"
 
 msgid "Oprionally can be mentioned in English/Russian."
-msgstr "Вказання заголовку англійсько/російською не обов'язкове."
+msgstr "Вказання заголовку англійською/російською не обов'язкове."
 
 msgid "string, multilingual, optional"
 msgstr "рядок, багатомовний, не обов'язковий"
