@@ -38,8 +38,6 @@ class AssetBasicResourceTest(BaseAssetWebTest, ResourceTestMixin, AssetResourceT
         response = self.app.post_json('/', {'data': bad_initial_data},status=422)
         self.assertEqual(response.status, '422 Unprocessable Entity')
         self.assertEqual(response.content_type, 'application/json')
-        # import pdb;pdb.set_trace()
-
         self.assertEqual(response.json['errors'], [{u'description': [u'classification id mismatch with schema_properties code'], u'location': u'body', u'name': u'schema_properties'}])
 
     def test_delete_item_schema(self):
