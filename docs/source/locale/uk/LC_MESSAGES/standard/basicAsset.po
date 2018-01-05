@@ -302,5 +302,8 @@ msgstr ""
 msgid "currency"
 msgstr ""
 
+msgid "decimal, required"
+msgstr "неціле число, обов'язкове"
+
 #~ msgid "|ocdsDescription| Amount as a number."
 #~ msgstr "|ocdsDescription|Кількість як число."
