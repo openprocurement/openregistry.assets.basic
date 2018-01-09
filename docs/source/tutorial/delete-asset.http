@@ -21,9 +21,9 @@ X-Content-Type-Options: nosniff
     "assetType": "basic", 
     "description": "Земельні ділянки із великими покладами благородних металів", 
     "classification": {
-      "scheme": "CPV", 
+      "scheme": "CAV",
       "description": "Земельні ділянки", 
-      "id": "37452200-3"
+      "id": "39513200-3"
     }, 
     "title": "Земля для космодрому", 
     "assetID": "UA-2017-08-16-000001", 
@@ -63,7 +63,7 @@ X-Content-Type-Options: nosniff
     "date": "2017-08-16T18:36:14.273050+03:00", 
     "id": "f7d85ded1544424d82a3473f9467f80f", 
     "unit": {
-      "code": "44617100-9", 
+      "code": "39513200-3",
       "name": "item"
     }, 
     "quantity": 5

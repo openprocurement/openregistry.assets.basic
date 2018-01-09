@@ -1,63 +1,66 @@
 # -*- coding: utf-8 -*-
-import os
 import unittest
+from copy import deepcopy
 
-from openregistry.api.tests.base import BaseWebTest, snitch
+from openregistry.api.tests.blanks.mixins import ResourceTestMixin
+from openregistry.api.tests.blanks.json_data import test_asset_basic_data, test_asset_basic_data_with_schema
+from openregistry.assets.core.tests.blanks.mixins import AssetResourceTestMixin
 
-from openregistry.assets.basic.tests.base import (
-    test_asset_data, BaseAssetWebTest
-)
-from openregistry.assets.basic.tests.asset_blanks import (
-    # AssetResourceTest
-    listing,
-    get_asset,
-    asset_not_found,
-    dateModified_asset,
-    listing_draft,
-    listing_changes,
-    create_asset,
-    patch_asset,
-    asset_bot_patch,
-    # AssetTest
-    simple_add_asset,
-    administrator_change_delete_status,
-    administrator_change_complete_status,
-)
+from openregistry.assets.basic.models import Asset as AssetBasic
+from openregistry.assets.basic.tests.base import BaseAssetWebTest
 
 
-class AssetResourceTestMixin(object):
-    test_01_listing = snitch(listing)
-    test_02_listing_changes = snitch(listing_changes)
-    test_03_listing_draft = snitch(listing_draft)
-    test_04_get_asset = snitch(get_asset)
-    test_05_dateModified_asset = snitch(dateModified_asset)
-    test_06_asset_not_found = snitch(asset_not_found)
-    test_07_create_asset = snitch(create_asset)
-    test_08_patch_asset = snitch(patch_asset)
-    test_09_asset_bot_patch = snitch(asset_bot_patch)
-    test_10_administrator_change_delete_status = snitch(administrator_change_delete_status)
-    test_11_administrator_change_complete_status = snitch(administrator_change_complete_status)
+class AssetBasicResourceTest(BaseAssetWebTest, ResourceTestMixin, AssetResourceTestMixin):
+    asset_model = AssetBasic
+    initial_data = test_asset_basic_data
+    initial_status = 'pending'
 
+    def test_create_compount_with_item_schemas(self):
+        response = self.app.post_json('/?opt_pretty=1', {'data': test_asset_basic_data_with_schema})
+        self.assertEqual(response.status, '201 Created')
+        self.assertEqual(response.content_type, 'application/json')
+        response = response.json['data']
+        self.assertEqual(response['title'], test_asset_basic_data_with_schema['title'])
+        self.assertEqual(response['assetType'], test_asset_basic_data_with_schema['assetType'])
+        self.assertEqual(response['assetCustodian'], test_asset_basic_data_with_schema['assetCustodian'])
+        self.assertEqual(response['classification'], test_asset_basic_data_with_schema['classification'])
+        self.assertEqual(response['unit'], test_asset_basic_data_with_schema['unit'])
+        self.assertEqual(response['quantity'], test_asset_basic_data_with_schema['quantity'])
+        self.assertEqual(response['address'], test_asset_basic_data_with_schema['address'])
+        self.assertEqual(response['value']['amount'], test_asset_basic_data_with_schema['value']['amount'])
+        self.assertEqual(response['value']['currency'], test_asset_basic_data_with_schema['value']['currency'])
+        self.assertEqual(response['schema_properties']['properties'], test_asset_basic_data_with_schema['schema_properties']['properties'])
+        self.assertEqual(response['schema_properties']['code'][0:2], test_asset_basic_data_with_schema['schema_properties']['code'][:2])
 
-class AssetTest(BaseWebTest):
-    initial_data = test_asset_data
-    relative_to = os.path.dirname(__file__)
+    def test_bad_item_schemas_code(self):
+        bad_initial_data = deepcopy(test_asset_basic_data_with_schema)
+        bad_initial_data['classification']['id'] = "42124210-6"
+        response = self.app.post_json('/', {'data': bad_initial_data},status=422)
+        self.assertEqual(response.status, '422 Unprocessable Entity')
+        self.assertEqual(response.content_type, 'application/json')
+        self.assertEqual(response.json['errors'], [{u'description': [u'classification id mismatch with schema_properties code'], u'location': u'body', u'name': u'schema_properties'}])
 
-    test_simple_add_asset = snitch(simple_add_asset)
+    def test_delete_item_schema(self):
+        response = self.app.post_json('/', {'data': test_asset_basic_data_with_schema})
+        self.assertEqual(response.status, '201 Created')
+        resource = response.json['data']
+        self.resource_token = response.json['access']['token']
+        self.access_header = {'X-Access-Token': str(response.json['access']['token'])}
+        self.resource_id = resource['id']
+        status = resource['status']
 
-
-class AssetResourceTest(BaseAssetWebTest, AssetResourceTestMixin):
-    initial_data = test_asset_data
-    initial_status = "pending"
-    initial_auth = ('Basic', ('broker', ''))
-    relative_to = os.path.dirname(__file__)
+        response = self.app.patch_json('/{}?access_token={}'.format(
+                                self.resource_id, self.resource_token),
+                                headers=self.access_header,
+                                params={'data': {'schema_properties': None}})
+        #TODO delete schema proderties
+        # self.assertEqual(response.json['data']['schema_properties'], None)
 
 
 def suite():
-    suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(AssetResourceTest))
-    suite.addTest(unittest.makeSuite(AssetTest))
-    return suite
+    tests = unittest.TestSuite()
+    tests.addTest(unittest.makeSuite(AssetBasicResourceTest))
+    return tests
 
 
 if __name__ == '__main__':

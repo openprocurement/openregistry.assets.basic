@@ -1,0 +1,119 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: openprocurement.auctions.dgf 1.1.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-03 17:47+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "string, auto-generated"
+msgstr "рядок, генерується автоматично"
+
+msgid "string"
+msgstr "рядок"
+
+msgid "string, multilingual"
+msgstr "рядок, багатомовний"
+
+msgid "|ocdsDescription| The document title."
+msgstr "|ocdsDescription| Заголовок документу."
+
+msgid ""
+"|ocdsDescription| A short description of the document. In the event the "
+"document is not accessible online, the description field can be used to "
+"describe arrangements for obtaining a copy of the document."
+msgstr ""
+"|ocdsDescription| Короткий опис документа. Якщо документ не буде доступний "
+"онлайн, то поле опису можна використати для вказання способу отримання копії"
+" документа."
+
+msgid ""
+"|ocdsDescription| The format of the document taken from the `IANA Media "
+"Types code list <http://www.iana.org/assignments/media-types/>`_, with the "
+"addition of one extra value for 'offline/print', used when this document "
+"entry is being used to describe the offline publication of a document."
+msgstr ""
+"|ocdsDescription| Формат документа зі списку кодів `IANA Media "
+"Types<http://www.iana.org/assignments/media-types/>`_, з одним додатковим "
+"значенням ‘offline/print’, що буде використовуватись, коли запис цього "
+"документа використовується для опису офлайнової публікації документа."
+
+msgid "|ocdsDescription| Direct link to the document or attachment."
+msgstr "|ocdsDescription| Пряме посилання на документ чи додаток."
+
+msgid "|ocdsDescription| The date on which the document was first published."
+msgstr "|ocdsDescription| Дата, коли документ був опублікований вперше."
+
+msgid "string, :ref:`date`"
+msgstr "рядок, :ref:`date`"
+
+msgid "|ocdsDescription| Date that the document was last modified."
+msgstr "|ocdsDescription| Дата, коли документ було змінено востаннє."
+
+msgid ""
+"|ocdsDescription| Specifies the language of the linked document using either"
+" two-digit `ISO 639-1 "
+"<https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes>`_, or extended "
+"`BCP47 language tags <http://www.w3.org/International/articles/language-"
+"tags/>`_."
+msgstr ""
+"|ocdsDescription| Вказує мову документа, використовуючи або двоцифровий код "
+"`ISO 639-1 <https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes>`_ або "
+"розширений `BCP47 language tags <http://www.w3.org/International/articles"
+"/language-tags/>`_."
+
+msgid "Possible values are:"
+msgstr "Можливі значення:"
+
+msgid "Id of related :ref:`lot` or :ref:`item`."
+msgstr "ID пов’язаних :ref:`lot` або :ref:`item`."
+
+msgid "Document"
+msgstr ""
+
+msgid "Schema"
+msgstr ""
+
+msgid "id"
+msgstr ""
+
+msgid "documentType"
+msgstr ""
+
+msgid "title"
+msgstr ""
+
+msgid "description"
+msgstr ""
+
+msgid "format"
+msgstr ""
+
+msgid "url"
+msgstr ""
+
+msgid "datePublished"
+msgstr ""
+
+msgid "dateModified"
+msgstr ""
+
+msgid "language"
+msgstr ""
+
+msgid "documentOf"
+msgstr ""
+
+msgid "`asset`"
+msgstr ""
+
+msgid "`lot`"
+msgstr ""
+
+msgid "relatedItem"
+msgstr ""

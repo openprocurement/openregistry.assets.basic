@@ -8,7 +8,7 @@ from openregistry.assets.core.models import (
 
 
 class IBasicAsset(IAsset):
-     """ Marker interface for basic assets """
+    """ Marker interface for basic assets """
 
 
 @implementer(IBasicAsset)

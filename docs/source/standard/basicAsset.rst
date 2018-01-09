@@ -96,8 +96,8 @@ Schema
 
     The primary classification for the asset.
 
-    It is required for `classification.scheme` to be `CPV`. The
-    `classification.id` should be valid CPV code.
+    It is required for `classification.scheme` to be `CAV`. The
+    `classification.id` should be valid CAV code.
 
 :additionalClassifications:
     List of :ref:`Classification` objects, optioanl
@@ -108,7 +108,7 @@ Schema
     This may also be used to present codes from an internal classification
     scheme.
 
-    One of the possible additional classifiers is CPVS.
+    One of the possible additional classifiers is CAVS.
 
 :unit:
     :ref:`Unit`, required
@@ -135,38 +135,6 @@ Schema
     :elevation:
         string, optional, usually not used
         
-.. _assets_workflow: 
-
-Assets Workflow
-==============
-
-.. graphviz::
-
-    digraph G {
-            node [style=filled, color=lightgrey];
-            edge[style=dashed];
-            "draft" -> "pending";
-            edge[style=dashed]
-            "pending" -> "deleted";
-            edge[style=solid];
-            "pending" -> "locked";
-            edge[style=solid];
-            "locked" -> "pending";
-            edge[style=solid];
-            "locked" -> "active";
-            edge[style=solid];
-            "active" -> "pending";
-            edge[style=solid];
-            "active" -> "complete";
-    }
-
-
-Legend
---------
-
-   * dashed line - user action
-    
-   * solid line - action is done automatically
 
 .. _Classification:
 

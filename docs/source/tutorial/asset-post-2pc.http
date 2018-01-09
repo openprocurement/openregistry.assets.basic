@@ -9,8 +9,8 @@ Host: lb.api-sandbox.registry.ea.openprocurement.net
     "status": "draft", 
     "assetType": "basic", 
     "classification": {
-      "scheme": "CPV", 
-      "id": "37452200-3", 
+      "scheme": "CAV",
+      "id": "39513200-3",
       "description": "Земельні ділянки"
     }, 
     "title": "Земля для космодрому", 
@@ -45,7 +45,7 @@ Host: lb.api-sandbox.registry.ea.openprocurement.net
       "locality": "м. Київ"
     }, 
     "unit": {
-      "code": "44617100-9", 
+      "code": "39513200-3",
       "name": "item"
     }, 
     "quantity": 5
@@ -66,9 +66,9 @@ X-Content-Type-Options: nosniff
     "status": "draft", 
     "assetType": "basic", 
     "classification": {
-      "scheme": "CPV", 
+      "scheme": "CAV",
       "description": "Земельні ділянки", 
-      "id": "37452200-3"
+      "id": "39513200-3"
     }, 
     "title": "Земля для космодрому", 
     "assetID": "UA-2017-08-16-000001", 
@@ -108,7 +108,7 @@ X-Content-Type-Options: nosniff
     "date": "2017-08-16T18:36:13.844875+03:00", 
     "id": "f7d85ded1544424d82a3473f9467f80f", 
     "unit": {
-      "code": "44617100-9", 
+      "code": "39513200-3",
       "name": "item"
     }, 
     "quantity": 5
