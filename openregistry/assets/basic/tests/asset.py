@@ -2,8 +2,8 @@
 import unittest
 from copy import deepcopy
 
-from openregistry.api.tests.blanks.mixins import ResourceTestMixin
-from openregistry.api.tests.blanks.json_data import test_asset_basic_data, test_asset_basic_data_with_schema
+from openprocurement.api.tests.blanks.mixins import ResourceTestMixin
+from openprocurement.api.tests.blanks.json_data import test_asset_basic_data, test_asset_basic_data_with_schema
 from openregistry.assets.core.tests.blanks.mixins import AssetResourceTestMixin
 
 from openregistry.assets.basic.models import Asset as AssetBasic
