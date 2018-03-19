@@ -38,10 +38,10 @@ msgstr "Статус цього проекту - пре альфа."
 
 msgid ""
 "The source repository for this project is on GitHub: "
-"https://github.com/openprocurement/openregistry.api"
+"https://github.com/openprocurement/openprocurement.api"
 msgstr ""
 "Репозиторій джерельних текстів цього проекту є на GitHub: "
-"https://github.com/openprocurement/openregistry.api"
+"https://github.com/openprocurement/openprocurement.api"
 
 msgid "Documentation of related packages"
 msgstr "Документація пов’язаних пакетів"
