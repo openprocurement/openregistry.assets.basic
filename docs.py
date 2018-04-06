@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from uuid import uuid4
 
-from openprocurement.api.tests.base import DumpsTestAppwebtest, PrefixedRequestClass
+from openregistry.assets.core.tests.base import DumpsTestAppwebtest, PrefixedRequestClass
 from openregistry.assets.basic.tests.base import BaseAssetWebTest
 
 

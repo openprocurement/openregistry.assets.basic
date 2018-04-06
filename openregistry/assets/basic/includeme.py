@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from pyramid.interfaces import IRequest
-from openprocurement.api.interfaces import IContentConfigurator
+from openregistry.assets.core.includeme import IContentConfigurator
 from openregistry.assets.basic.models import Asset, IBasicAsset
 from openregistry.assets.basic.adapters import BasicAssetConfigurator
 
