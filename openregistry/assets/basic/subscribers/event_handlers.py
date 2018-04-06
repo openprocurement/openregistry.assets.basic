@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from pyramid.events import subscriber
 from openregistry.assets.core.events import AssetInitializeEvent
-from openprocurement.api.utils import get_now
+from openregistry.assets.core.utils import get_now
 
 
 @subscriber(AssetInitializeEvent, assetType="basic")

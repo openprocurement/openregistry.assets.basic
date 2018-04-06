@@ -2,13 +2,14 @@
 import unittest
 from copy import deepcopy
 
-from openprocurement.api.tests.blanks.mixins import ResourceDocumentTestMixin
+from openregistry.assets.core.constants import DOCUMENT_TYPES
+from openregistry.assets.core.tests.base import test_document_data
+from openregistry.assets.core.tests.blanks.mixins import ResourceDocumentTestMixin
+
 from openregistry.assets.basic.tests.base import (
     AssetContentWebTest
 )
-from openprocurement.api.tests.blanks.json_data import test_document_data
 
-from openprocurement.api.constants import DOCUMENT_TYPES
 
 class AssetDocumentWithDSResourceTest(AssetContentWebTest, ResourceDocumentTestMixin):
     docservice = True
