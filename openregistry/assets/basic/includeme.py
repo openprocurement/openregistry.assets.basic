@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from pyramid.interfaces import IRequest
 from openregistry.assets.core.includeme import IContentConfigurator
+from openregistry.assets.core.interfaces import IAssetManager
 from openregistry.assets.basic.models import Asset, IBasicAsset
-from openregistry.assets.basic.adapters import BasicAssetConfigurator
+from openregistry.assets.basic.adapters import BasicAssetConfigurator, BasicAssetManagerAdapter
 
 
 def includeme(config, plugin_config=None):
@@ -12,3 +13,6 @@ def includeme(config, plugin_config=None):
     config.registry.registerAdapter(BasicAssetConfigurator,
                                     (IBasicAsset, IRequest),
                                     IContentConfigurator)
+    config.registry.registerAdapter(BasicAssetManagerAdapter,
+                                    (IBasicAsset, ),
+                                    IAssetManager)
