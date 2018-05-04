@@ -1,0 +1,16 @@
+---
+plugins:
+  api:
+    plugins:
+      assets.core:
+        plugins:
+          assets.basic:
+
+
+config:
+  auth:
+    type: file
+    src: auth.ini
+  database:
+    couchdb.db_name: tests
+    couchdb.url: http://op:op@localhost:5984/
