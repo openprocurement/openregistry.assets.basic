@@ -1,6 +1,0 @@
----
-api:
-  plugins:
-    assets.core:
-      plugins:
-        assets.basic:
