@@ -14,9 +14,12 @@ class BaseAssetWebTest(BaseAWT):
 
     def setUp(self):
         self.initial_data = deepcopy(test_asset_basic_data)
+        asset_type = os.environ.get('ASSET_TYPE', 'basic')
+        self.initial_data['assetType'] = asset_type
         super(BaseAssetWebTest, self).setUp()
 
 
 class AssetContentWebTest(BaseAssetWebTest):
     init = True
     initial_status = 'pending'
+
