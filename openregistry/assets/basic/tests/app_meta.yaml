@@ -5,6 +5,8 @@ plugins:
       assets.core:
         plugins:
           assets.basic:
+            aliases: [basic1]
+            use_default: True
 
 
 config:

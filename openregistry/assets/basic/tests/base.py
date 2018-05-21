@@ -20,3 +20,4 @@ class BaseAssetWebTest(BaseAWT):
 class AssetContentWebTest(BaseAssetWebTest):
     init = True
     initial_status = 'pending'
+

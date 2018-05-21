@@ -13,4 +13,5 @@ class IBasicAsset(IAsset):
 
 @implementer(IBasicAsset)
 class Asset(BaseAsset):
+    _internal_type = 'basic'
     assetType = StringType(default="basic")
