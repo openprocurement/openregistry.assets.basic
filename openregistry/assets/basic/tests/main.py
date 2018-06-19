@@ -2,13 +2,14 @@
 
 import unittest
 
-from openregistry.assets.basic.tests import asset, document
+from openregistry.assets.basic.tests import asset, document, transferring
 
 
 def suite():
     tests = unittest.TestSuite()
     tests.addTest(asset.suite())
     tests.addTest(document.suite())
+    tests.addTest(transferring.suite())
     return tests
 
 
