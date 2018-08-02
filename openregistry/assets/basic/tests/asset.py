@@ -39,6 +39,34 @@ class AssetBasicResourceTest(BaseAssetWebTest, ResourceTestMixin, AssetResourceT
         self.assertEqual(response.content_type, 'application/json')
         self.assertEqual(response.json['errors'], [{u'description': [u'classification id mismatch with schema_properties code'], u'location': u'body', u'name': u'schema_properties'}])
 
+    def test_koatuu_additional_classification(self):
+        input_classification = [{"scheme": "koatuu",
+                                "id": "0110136600",
+                                "description": "test"}]
+
+        initial_data = deepcopy(test_asset_basic_data_with_schema)
+        initial_data['additionalClassifications'] = input_classification
+
+        response = self.app.post_json('/', {'data': initial_data})
+        output_classification = response.json['data']['additionalClassifications']
+        self.assertEqual(input_classification, output_classification)
+
+        initial_data['additionalClassifications'][0]['id'] = '01101366000'
+        response = self.app.post_json('/', {'data': initial_data}, status=422)
+        self.assertEqual(response.status, '422 Unprocessable Entity')
+
+        initial_data['additionalClassifications'][0]['id'] = '1110136600'
+        response = self.app.post_json('/', {'data': initial_data}, status=422)
+        self.assertEqual(response.status, '422 Unprocessable Entity')
+
+        initial_data['additionalClassifications'][0]['id'] = '1110136600'
+        response = self.app.post_json('/', {'data': initial_data}, status=422)
+        self.assertEqual(response.status, '422 Unprocessable Entity')
+
+        initial_data['additionalClassifications'][0]['id'] = '7510136600'
+        response = self.app.post_json('/', {'data': initial_data}, status=422)
+        self.assertEqual(response.status, '422 Unprocessable Entity')
+
     def test_delete_item_schema(self):
         response = self.app.post_json('/', {'data': test_asset_basic_data_with_schema})
         self.assertEqual(response.status, '201 Created')
