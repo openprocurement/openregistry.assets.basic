@@ -28,3 +28,6 @@ def includeme(config, plugin_config=None):
         config.add_assetType(Asset, at)
 
     LOGGER.info("Included openregistry.assets.basic plugin", extra={'MESSAGE_ID': 'included_plugin'})
+
+    # add accreditation level
+    config.registry.accreditation['asset'][Asset._internal_type] = plugin_config['accreditation']
