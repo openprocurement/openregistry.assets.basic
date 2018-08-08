@@ -16,7 +16,7 @@ class IBasicAsset(IAsset):
 
 
 class AssetAdditionalClassification(Classification):
-    id_validators = Classification.id_validators + (koatuu_validator,)
+    _id_field_validators = Classification._id_field_validators + (koatuu_validator,)
 
 
 @implementer(IBasicAsset)

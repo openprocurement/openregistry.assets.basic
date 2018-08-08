@@ -52,12 +52,7 @@ class AssetBasicResourceTest(BaseAssetWebTest, ResourceTestMixin, AssetResourceT
         self.assertEqual(input_classification, output_classification)
 
         initial_data['additionalClassifications'][0]['id'] = '01101366000'
-        response = self.app.post_json('/', {'data': initial_data}, status=422)
-        self.assertEqual(response.status, '422 Unprocessable Entity')
-
-        initial_data['additionalClassifications'][0]['id'] = '1110136600'
-        response = self.app.post_json('/', {'data': initial_data}, status=422)
-        self.assertEqual(response.status, '422 Unprocessable Entity')
+        response = self.app.post_json('/', {'data': initial_data}, status=201)
 
         initial_data['additionalClassifications'][0]['id'] = '1110136600'
         response = self.app.post_json('/', {'data': initial_data}, status=422)
