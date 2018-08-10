@@ -3,20 +3,14 @@ from schematics.types import StringType
 from schematics.types.compound import ModelType, ListType
 from zope.interface import implementer
 
-
 from openregistry.assets.core.models import (
     IAsset, Asset as BaseAsset,
-    Classification,
-    koatuu_validator,
+    AssetAdditionalClassification
 )
 
 
 class IBasicAsset(IAsset):
     """ Marker interface for basic assets """
-
-
-class AssetAdditionalClassification(Classification):
-    _id_field_validators = Classification._id_field_validators + (koatuu_validator,)
 
 
 @implementer(IBasicAsset)
