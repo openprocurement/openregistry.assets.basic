@@ -2,17 +2,32 @@
 import unittest
 from copy import deepcopy
 
-from openregistry.assets.core.tests.base import test_asset_basic_data, test_asset_basic_data_with_schema
-from openregistry.assets.core.tests.blanks.mixins import AssetResourceTestMixin, ResourceTestMixin
+from openregistry.assets.core.tests.base import (
+    test_asset_basic_data,
+    test_asset_basic_data_with_schema
+)
+from openregistry.assets.core.tests.blanks.mixins import (
+    snitch,
+    AssetResourceTestMixin,
+    ResourceTestMixin
+)
 
 from openregistry.assets.basic.models import Asset as AssetBasic
 from openregistry.assets.basic.tests.base import BaseAssetWebTest
 
+from openregistry.assets.core.tests.blanks.asset import (
+    koatuu_additional_classification
+)
 
-class AssetBasicResourceTest(BaseAssetWebTest, ResourceTestMixin, AssetResourceTestMixin):
+
+class AssetBasicResourceTest(BaseAssetWebTest,
+                             ResourceTestMixin,
+                             AssetResourceTestMixin):
     asset_model = AssetBasic
     initial_data = test_asset_basic_data
     initial_status = 'pending'
+
+    test_koatuu_additional_classification = snitch(koatuu_additional_classification)
 
     def test_create_compount_with_item_schemas(self):
         response = self.app.post_json('/?opt_pretty=1', {'data': test_asset_basic_data_with_schema})
@@ -34,7 +49,7 @@ class AssetBasicResourceTest(BaseAssetWebTest, ResourceTestMixin, AssetResourceT
     def test_bad_item_schemas_code(self):
         bad_initial_data = deepcopy(test_asset_basic_data_with_schema)
         bad_initial_data['classification']['id'] = "42124210-6"
-        response = self.app.post_json('/', {'data': bad_initial_data},status=422)
+        response = self.app.post_json('/', {'data': bad_initial_data}, status=422)
         self.assertEqual(response.status, '422 Unprocessable Entity')
         self.assertEqual(response.content_type, 'application/json')
         self.assertEqual(response.json['errors'], [{u'description': [u'classification id mismatch with schema_properties code'], u'location': u'body', u'name': u'schema_properties'}])
@@ -46,13 +61,12 @@ class AssetBasicResourceTest(BaseAssetWebTest, ResourceTestMixin, AssetResourceT
         self.resource_token = response.json['access']['token']
         self.access_header = {'X-Access-Token': str(response.json['access']['token'])}
         self.resource_id = resource['id']
-        status = resource['status']
 
         response = self.app.patch_json('/{}?access_token={}'.format(
                                 self.resource_id, self.resource_token),
                                 headers=self.access_header,
                                 params={'data': {'schema_properties': None}})
-        #TODO delete schema proderties
+        #  TODO delete schema proderties
         # self.assertEqual(response.json['data']['schema_properties'], None)
 
 
