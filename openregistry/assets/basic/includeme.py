@@ -6,7 +6,10 @@ from openregistry.assets.core.includeme import IContentConfigurator
 from openregistry.assets.core.interfaces import IAssetManager
 from openregistry.assets.basic.models import Asset, IBasicAsset
 from openregistry.assets.basic.adapters import BasicAssetConfigurator, BasicAssetManagerAdapter
-from openregistry.assets.basic.constants import DEFAULT_ASSET_BASIC_TYPE
+from openregistry.assets.basic.constants import (
+    DEFAULT_ASSET_BASIC_TYPE,
+    DEFAULT_LEVEL_OF_ACCREDITATION
+)
 
 LOGGER = logging.getLogger(__name__)
 
@@ -28,3 +31,9 @@ def includeme(config, plugin_config=None):
         config.add_assetType(Asset, at)
 
     LOGGER.info("Included openregistry.assets.basic plugin", extra={'MESSAGE_ID': 'included_plugin'})
+
+    # add accreditation level
+    if not plugin_config.get('accreditation'):
+        config.registry.accreditation['asset'][Asset._internal_type] = DEFAULT_LEVEL_OF_ACCREDITATION
+    else:
+        config.registry.accreditation['asset'][Asset._internal_type] = plugin_config['accreditation']
