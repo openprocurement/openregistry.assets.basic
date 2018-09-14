@@ -100,7 +100,7 @@ Schema
     `classification.id` should be valid CAV code.
 
 :additionalClassifications:
-    List of :ref:`Classification` objects, optioanl
+    Array of :ref:`Classification` objects, optioanl
 
     |ocdsDescription|
     An array of additional classifications for the item. See the
@@ -108,7 +108,7 @@ Schema
     This may also be used to present codes from an internal classification
     scheme.
 
-    One of the possible additional classifiers is CAVS.
+    The possible additional classifiers are CPVS and koatuu.
 
 :unit:
     :ref:`Unit`, required
